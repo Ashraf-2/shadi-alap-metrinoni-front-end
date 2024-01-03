@@ -6,7 +6,7 @@
       "date_of_birth": "1994-05-15",
       "gender": "male",
       "occupation": "Software Engineer",
-      "division_name": "Tech Division",
+      "division_name": "Dhaka",
       "image_url": "https://i.ibb.co/XsqY9X2/istockphoto-1248747884-612x612.jpg",
       "about_me": "I am a software engineer with a passion for coding. I enjoy outdoor activities and love to explore new places.",
       "membership": "premium user"
@@ -18,7 +18,7 @@
       "date_of_birth": "1996-08-22",
       "gender": "female",
       "occupation": "Marketing Specialist",
-      "division_name": "Marketing Division",
+      "division_name": "Maymanshingh",
       "image_url": "https://i.ibb.co/3T4ZmRk/grace-harper-ep.jpg",
       "about_me": "I work in marketing and love coming up with creative ideas. In my free time, I enjoy reading, painting, and trying out new recipes.",
       "membership": "silver user"
@@ -30,7 +30,7 @@
       "date_of_birth": "1992-02-10",
       "gender": "male",
       "occupation": "Doctor",
-      "division_name": "Medical Division",
+      "division_name": "Sylhet",
       "image_url": "https://i.ibb.co/QcQmRJJ/romley-halden-sound-eng.jpg",
       "about_me": "I'm a doctor by profession, dedicated to helping others. Outside of work, I enjoy playing sports, especially tennis.",
       "membership": "user"
@@ -42,7 +42,7 @@
       "date_of_birth": "1997-11-05",
       "gender": "female",
       "occupation": "Graphic Designer",
-      "division_name": "Creative Division",
+      "division_name": "Dhaka",
       "image_url": "https://i.ibb.co/3T4ZmRk/grace-harper-ep.jpg",
       "about_me": "As a graphic designer, I find joy in creating visually appealing designs. I love photography, traveling, and exploring new design trends.",
       "membership": "premium user"
@@ -54,7 +54,7 @@
       "date_of_birth": "1990-06-18",
       "gender": "male",
       "occupation": "Entrepreneur",
-      "division_name": "Business Division",
+      "division_name": "Borishal",
       "image_url": "https://i.ibb.co/QcQmRJJ/romley-halden-sound-eng.jpg",
       "about_me": "I'm an entrepreneur with a passion for building successful businesses. I enjoy networking, reading business books, and staying active.",
       "membership": "silver user"
@@ -66,7 +66,7 @@
       "date_of_birth": "1993-09-28",
       "gender": "female",
       "occupation": "Teacher",
-      "division_name": "Education Division",
+      "division_name": "Chattogram",
       "image_url": "https://i.ibb.co/3T4ZmRk/grace-harper-ep.jpg",
       "about_me": "Teaching is my calling, and I love shaping young minds. Outside the classroom, I enjoy hiking, gardening, and volunteering for community projects.",
       "membership": "user"
