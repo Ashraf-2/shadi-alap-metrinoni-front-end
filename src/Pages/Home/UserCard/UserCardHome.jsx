@@ -1,17 +1,36 @@
 import { useEffect, useState } from "react";
 import { GiMale, GiFemale } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 
 const UserCardHome = () => {
     const [userCard, setUserCard] = useState();
     const [isLoading, setLoading] = useState(true);
 
+    
+
+    const calCulateAge = (dob) => {
+        // console.log(dob)
+        const today = new Date();
+        const birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        // console.log('age: ', age);
+        return age;
+    }
+
+    const sortByAge = (data)=> {
+       return data.sort((a,b) => calCulateAge(a.date_of_birth) - calCulateAge(b.date_of_birth))
+    }
+
+
     useEffect(() => {
         fetch('fakeDataUser.json')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
-                setUserCard(data)
+                // console.log(data)
+                // setUserCard(sortByAge(data))
+                const sortedUsers = sortByAge(data);
+                setUserCard(sortedUsers);
                 setLoading(false);
             })
     }, [])
@@ -19,19 +38,10 @@ const UserCardHome = () => {
         return <span className="loading loading-spinner "></span>
     }
     console.log(userCard);
-
-    const calCulateAge = (dob) => {
-        console.log(dob)
-        const today = new Date();
-        const birthDate = new Date(dob);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        // const monthDiff = today.getMonth() - birthDate.getMonth();
-        console.log('age: ',age); 
-        return age;
-    }
     return (
         <div className=" my-10">
             <h2 className="text-center text-4xl font-bold">Premium Members</h2>
+            
             <div className="grid grid-cols-3 gap-5">
                 {
                     userCard.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl">
@@ -50,9 +60,13 @@ const UserCardHome = () => {
                             <p><span className="font-semibold">Membership</span>: {onecard.membership}</p>
                             <p><span className="font-semibold">Occupation</span>: {onecard.occupation}</p>
                             <p><span className="font-semibold">Division</span>: {onecard.division_name}</p>
+
                             <p><span className="font-semibold">Age</span>: {calCulateAge(onecard.date_of_birth)}</p>
+
                             <div className="card-actions justify-end">
-                                <button className="btn btn-ghost">View Profile</button>
+                                <Link to={`/detailsBioData/${onecard._id}`}>
+                                    <button className="btn btn-ghost">View Profile</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
