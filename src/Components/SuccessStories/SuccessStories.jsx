@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import SingleStoryShow from "./SingleStoryShow";
 
 
 const SuccessStories = () => {
@@ -41,8 +40,7 @@ const SuccessStories = () => {
 
             >
                 {
-                    // stories.map(singleStory => <SingleStoryShow key={singleStory.id} singleStory={singleStory}></SingleStoryShow>)
-
+                   
                     stories.map(singleStory => <SwiperSlide key={singleStory.id}>
                         <div className="flex flex-col justify-center items-center px-14 py-10">
                             <img className="w-40 h-40 rounded-full" src={singleStory.imageURL} alt="" />
