@@ -39,12 +39,12 @@ const UserCardHome = () => {
     }
     console.log(userCard);
     return (
-        <div className=" my-10">
+        <div className="my-10">
             <h2 className="text-center text-4xl font-bold">Premium Members</h2>
             
-            <div className="grid grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 ">
                 {
-                    userCard.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl">
+                    userCard.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
                         <figure><img className=" w-32 h-32 rounded-full mt-5" src={onecard.image_url} alt="Shoes" /></figure>
                         <div className="card-body">
                             <p className="text-xl font-semibold text-center flex flex-row justify-center ">

@@ -1,0 +1,10 @@
+.website_works {
+    /* https://i.ibb.co/YtpwTM6/pexels-josh-willink-1690732.jpg */
+    /* https://i.ibb.co/r2c5B7J/indian-couple-marriage-pic.jpg */
+  background-image: url(" https://i.ibb.co/YtpwTM6/pexels-josh-willink-1690732.jpg");
+  background-position: center;
+  background-size: cover;
+  /* filter: blur(1px); */
+  overflow: hidden;
+}
+
