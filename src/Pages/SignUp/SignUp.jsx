@@ -1,8 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../../AurhProviders/AuthProvider";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-    const {user, isLoading, registerUser} = useContext(AuthContext);
+    const { user, isLoading, registerUser, updateUserProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
+
 
     const handleSignUp = (e) => {
         e.preventDefault();
@@ -11,7 +14,24 @@ const SignUp = () => {
         const password = form.password.value;
         const name = form.name.value;
         const photoUrl = form.photo_url.value;
-        console.log(name, email, password,photoUrl);
+        console.log(name, email, password, photoUrl);
+
+        registerUser(email, password)
+            .then(res => {
+                const loggedUser = res.user;
+                console.log(loggedUser);
+                updateUserProfile(name, photoUrl)
+                    .then(res => {
+                        alert('you are logged in')
+                        navigate('/');
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            })
+            .catch(error => {
+                console.log(error)
+            })
 
     }
     return (
@@ -47,9 +67,7 @@ const SignUp = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name="password" placeholder="password" className="input input-bordered" required />
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
+                            
                         </div>
                         {/* CAPTCHA loading */}
                         {/* <div className="flex flex-col">
@@ -61,6 +79,10 @@ const SignUp = () => {
                         </div> */}
                         <div className="form-control mt-6">
                             <input type="submit" value="Sign Up" className="btn btn-info"></input>
+                        </div>
+                        <div>
+                            <Link to="/login">Do not have account? Here <span className="font-bold">Log in</span> </Link>
+
                         </div>
                     </form>
                     {/* <GoogleLogin></GoogleLogin> */}
