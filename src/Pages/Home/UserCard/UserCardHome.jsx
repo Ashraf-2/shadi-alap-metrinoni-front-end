@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { GiMale, GiFemale } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { calCulateAge } from "../../../Functions/calculateAgeFn";
+
 
 
 const UserCardHome = () => {
@@ -9,18 +11,18 @@ const UserCardHome = () => {
 
 
 
-    const calCulateAge = (dob) => {
-        // console.log(dob)
-        const today = new Date();
-        const birthDate = new Date(dob);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        // let ageMonth = today.getMonth() - birthDate.getMonth();
-        // if (ageMonth < 0 || (ageMonth === 0 && today.getDate() < birthDate.getDate())) {
-        //     age--;
-        // }
-        // console.log('age: ', age);
-        return age;
-    }
+    // const calCulateAge = (dob) => {
+    //     // console.log(dob)
+    //     const today = new Date();
+    //     const birthDate = new Date(dob);
+    //     let age = today.getFullYear() - birthDate.getFullYear();
+    //     // let ageMonth = today.getMonth() - birthDate.getMonth();
+    //     // if (ageMonth < 0 || (ageMonth === 0 && today.getDate() < birthDate.getDate())) {
+    //     //     age--;
+    //     // }
+    //     // console.log('age: ', age);
+    //     return age;
+    // }
 
     const sortByAge = (data) => {
         return data.sort((a, b) => calCulateAge(a.date_of_birth) - calCulateAge(b.date_of_birth))

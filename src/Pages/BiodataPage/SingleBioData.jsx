@@ -38,10 +38,7 @@ const SingleBioData = ({onecard}) => {
                     }
                 </span>
             </p>
-           
-            {/* <p><span className="font-semibold">Membership</span>: {onecard.membership}</p> */}
             <p><span className="font-semibold">Division</span>: {division_name}</p>
-
             <p><span className="font-semibold">Occupation</span>: {occupation}</p>
             <p><span className="font-semibold">Age</span>: {calCulateAge(date_of_birth)}</p>
 

@@ -7,7 +7,7 @@ const useBiodatas = () => {
     const axiosPublic = useAxiosPublic();
     const {user} = useAuth();
 
-    const {data: biodatas=[], refetch, isLoading} = useQuery({
+    const {data: biodatas=[], refetch, isLoading, isPending} = useQuery({
         queryKey: ['biodata'],
         queryFn: async()=> {
             const res = await axiosPublic.get('/biodata')
@@ -17,7 +17,7 @@ const useBiodatas = () => {
         }
     })
 
-    return [biodatas,refetch,isLoading];
+    return [biodatas,refetch,isLoading,isPending];
 };
 
 export default useBiodatas;
