@@ -32,14 +32,21 @@ const BiodataPage = () => {
         // refetch();
     }
     const filtered_data = biodatas.filter(item => {
-        if (!selectedDivision) {
+        if (!selectedDivision && !selectGender) {
             return true;
         }
-        // if(selectGender === 'male and female'){
-        //     return item
-        // }
+        if(selectGender && selectedDivision === ''){
+            console.log('only gender base')
+            return item.gender.toLowerCase() === selectGender;
+        }
+        if(selectGender === 'male and female' )
+        {
+            console.log('male and female based')
+            return item.division_name.toLowerCase() === selectedDivision;
+        }
+        
         if (selectGender) {
-            return item.division_name.toLowerCase() === selectedDivision && item.gender.toLowerCase() === selectGender
+            return item.division_name.toLowerCase() === selectedDivision && item.gender.toLowerCase() === selectGender;
         }
 
         return item.division_name.toLowerCase() === selectedDivision;
@@ -65,6 +72,7 @@ const BiodataPage = () => {
                             <option value='rajshahi'>Rajshahi</option>
                             <option value='chattogram'>Chattogram</option>
                             <option value='maymanshingh'>Maymanshingh</option>
+                            <option value=''>All divisino</option>
                         </select>
                     </div>
                     {/* SELECT GENDER */}
@@ -74,7 +82,7 @@ const BiodataPage = () => {
                             <option disabled value='' >Filter Gender</option>
                             <option value='male'>Male</option>
                             <option value="female">Female</option>
-                            <option value="male and female">Male and Female</option>
+                            <option value="">Male and Female</option>
                         </select>
                     </div>
                 </div>
