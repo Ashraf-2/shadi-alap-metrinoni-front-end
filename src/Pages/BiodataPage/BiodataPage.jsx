@@ -10,7 +10,6 @@ const BiodataPage = () => {
     const [selectedDivision, setSelectedDivision] = useState('');
     const [selectGender, setSelectGender] = useState('');
 
-    const [divisionChange, setDivisionChange] = useState(false);
 
     if (isLoading) {
         return <span className="loading loading-spinner"></span>
@@ -33,28 +32,31 @@ const BiodataPage = () => {
     }
     const filtered_data = biodatas.filter(item => {
         if (!selectedDivision && !selectGender) {
+            // all division and all gender base
             return true;
         }
         if(selectGender && selectedDivision === ''){
+            // only based on gender and all division
             console.log('only gender base')
             return item.gender.toLowerCase() === selectGender;
         }
         if(selectGender === 'male and female' )
         {
+            // all male and female , not bound to any division
             console.log('male and female based')
             return item.division_name.toLowerCase() === selectedDivision;
         }
         
         if (selectGender) {
+            // based on gender and division
             return item.division_name.toLowerCase() === selectedDivision && item.gender.toLowerCase() === selectGender;
         }
-
+        //when no filter is working, when all data need to see.
         return item.division_name.toLowerCase() === selectedDivision;
     })
     console.log(filtered_data);
     console.log('filtered_data length: ', filtered_data.length)
 
-    console.log('division status: ', divisionChange);
     refetch();
 
     return (
