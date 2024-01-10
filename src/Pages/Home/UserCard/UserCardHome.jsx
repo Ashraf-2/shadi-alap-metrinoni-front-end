@@ -7,19 +7,23 @@ const UserCardHome = () => {
     const [userCard, setUserCard] = useState();
     const [isLoading, setLoading] = useState(true);
 
-    
+
 
     const calCulateAge = (dob) => {
         // console.log(dob)
         const today = new Date();
         const birthDate = new Date(dob);
         let age = today.getFullYear() - birthDate.getFullYear();
+        // let ageMonth = today.getMonth() - birthDate.getMonth();
+        // if (ageMonth < 0 || (ageMonth === 0 && today.getDate() < birthDate.getDate())) {
+        //     age--;
+        // }
         // console.log('age: ', age);
         return age;
     }
 
-    const sortByAge = (data)=> {
-       return data.sort((a,b) => calCulateAge(a.date_of_birth) - calCulateAge(b.date_of_birth))
+    const sortByAge = (data) => {
+        return data.sort((a, b) => calCulateAge(a.date_of_birth) - calCulateAge(b.date_of_birth))
     }
 
 
@@ -41,7 +45,7 @@ const UserCardHome = () => {
     return (
         <div className="my-10">
             <h2 className="text-center text-4xl font-bold">Premium Members</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 ">
                 {
                     userCard.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
