@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useBiodatas from "../../Hooks/useBiodatas";
 import { calCulateAge } from "../../Functions/calculateAgeFn";
 import { useEffect, useState } from "react";
@@ -20,7 +20,8 @@ const DetailsBioData = () => {
     //     return <span className="loading loading-bars"></span>
     // }
     console.log(membership);
-
+    //fetching others but same gender data.
+    const [isLoadingOthers, setIsloadingOthers] = useState(true);
     useEffect(() => {
         axios.get(`http://localhost:5000/biodataGender/${gender}`)
             .then(res => {
@@ -28,16 +29,21 @@ const DetailsBioData = () => {
                 const othersData = res.data.filter(item => item._id != _id);
                 console.log('others data: ', othersData);
                 setSameGenderData(othersData);
+                setIsloadingOthers(false);
             })
             .catch(error => {
                 console.log(error);
             })
     }, [])
 
+    //section: for checkout
+    const normal_user = true;
+
     return (
         <div>
             <h2 className="text-center font-bold text-xl text-red-400">Details individual biodata</h2>
             <h2 className="text-center">this is details bio data page for user id: {_id}</h2>
+            <h2 className="text-center text-red-800 font-bold">this user is a normal user</h2>
 
             <div className="flex flex-col md:flex-row w-full gap-2 my-10">
                 {/* left side information */}
@@ -59,22 +65,48 @@ const DetailsBioData = () => {
                         {/* <p><span className="font-bold">Contact Info:</span> {
                             membership?.membership ==='premium user'? "You will get it": "Not allowed"
                         }</p> */}
-                        {
-                            membership?.membership === 'premium user' ? <p>Contact info: You will be given</p> : <p>Contact Info: Not Allowed</p>
-                        }
+                        <div className="flex flex-col md:flex-row items-center justify-between">
+                            {/* contact visibility section */}
+                            <p>
+                                <span className="text-xl font-bold">Contact: </span>
+                                {
+                                    normal_user ? <span>You will not be given the contact info</span> : <span>Allowed</span>
+                                }
+                            </p>
+                            <Link to={`/checkout/${id}`}>
+                                <button hidden={!normal_user} className="btn btn-outline hover:bg-lime-400 text-black hover:text-black hover:border-none">Request for contact info</button>
+                            </Link>
+                            {/* You can open the modal using document.getElementById('ID').showModal() method */}
+                            {/* <button className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>open modal</button> */}
+                            <dialog id="my_modal_3" className="modal">
+                                <div className="modal-box">
+                                    <form method="dialog">
+                                        {/* if there is a button in form, it will close the modal */}
+                                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>
+                                    <h3 className="font-bold text-lg">Hello!</h3>
+                                    <p className="py-4">Press ESC key or click on ✕ button to close</p>
+                                </div>
+                            </dialog>
+                        </div>
 
                         <div className="text-center mt-5">
                             <button className="btn btn-success bg-pink-500 text-white border-none">Add to favourite</button>
                         </div>
-
                     </div>
                 </div>
                 <div className="md:w-4/12">
-                    {/* right side information */}
+                    {/* right side information - same gender users */}
                     <h2 className="text-xl font-medium text-center mb-5">You may like others!</h2>
                     <div className="grid grid-cols-1 gap-5">
                         {
-                            sameGenderData.map(item => <div key={item._id} className="card card-compact bg-base-100 shadow-xl">
+                            isLoadingOthers && <div className="text-center">
+                                <span className="loading loading-dots text-center"></span>
+                            </div>
+                        }
+                        {
+
+                            sameGenderData?.map(item => <div key={item._id} className="card card-compact bg-base-100 shadow-xl">
                                 <figure className="my-5">
                                     <img className="w-40 h-40 mx-auto rounded-full" src={item.image_url} alt="Shoes" />
                                 </figure>

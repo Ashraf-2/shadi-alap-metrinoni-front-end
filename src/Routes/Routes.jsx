@@ -5,11 +5,14 @@ import DetailsBioData from "../Pages/DetailsBioDate/DetailsBioData";
 import SignUp from "../Pages/SignUp/SignUp";
 import Login from "../Pages/Login/Login";
 import Biodatapage from "../Pages/BiodataPage/BiodataPage";
+import CheckoutPage from "../Pages/CheckOutPage/CheckoutPage";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const routes = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -30,6 +33,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/biodatapage',
                 element: <Biodatapage></Biodatapage>
+            },
+            {
+                path: '/checkout/:_id',
+                element:<CheckoutPage></CheckoutPage>
             }
         ]
     }
