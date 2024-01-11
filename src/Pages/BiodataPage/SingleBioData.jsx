@@ -23,7 +23,7 @@ const SingleBioData = ({onecard}) => {
     // }
 
 
-
+    
 
 
     return (

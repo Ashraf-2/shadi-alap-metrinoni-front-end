@@ -10,9 +10,9 @@ const DetailsBioData = () => {
     const [sameGenderData, setSameGenderData] = useState([]);
     // console.log(_id)
     const [biodatas, isLoading, isPending] = useBiodatas();       //load all biodatas
-    const individual_info = biodatas.filter(item => item._id == _id);       //filter desired specific data of the user.
+    const individual_info = biodatas?.find(item => item._id == _id);       //filter desired specific data of the user.
     console.log(individual_info);
-    const { _id: id, image_url, gender, about_me, division_name, occupation, date_of_birth, full_name, membership } = individual_info[0];            //because after filtering 'individual_info' data is an array. and we need the first data of from the array.
+    const { _id: id, image_url, gender, about_me, division_name, occupation, date_of_birth, full_name, membership } = individual_info || {};            //because after filtering 'individual_info' data is an array. and we need the first data of from the array.
 
     const age = calCulateAge(date_of_birth);        //calculate age of the user
 
@@ -34,7 +34,7 @@ const DetailsBioData = () => {
             .catch(error => {
                 console.log(error);
             })
-    }, [])
+    }, [_id, gender])
 
     //section: for checkout
     const normal_user = true;

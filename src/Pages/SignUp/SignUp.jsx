@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import { AuthContext } from "../../AurhProviders/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+import { FcGoogle } from "react-icons/fc";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SignUp = () => {
-    const { user, isLoading, registerUser, updateUserProfile } = useContext(AuthContext);
+    const { user, isLoading, registerUser, updateUserProfile, googleLoginInPopUp } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const axiosPublic = useAxiosPublic();
 
 
     const handleSignUp = (e) => {
@@ -22,7 +27,15 @@ const SignUp = () => {
                 console.log(loggedUser);
                 updateUserProfile(name, photoUrl)
                     .then(res => {
-                        alert('you are logged in')
+                        // alert('you are logged in')
+                        const userInfo = { name: name, email: email };
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                console.log(res);
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
                         navigate('/');
                     })
                     .catch(error => {
@@ -33,6 +46,25 @@ const SignUp = () => {
                 console.log(error)
             })
 
+    }
+
+
+    const handleGoogleSignIn = () => {
+        googleLoginInPopUp()
+            .then(result => {
+                console.log(result.user);
+                swal({
+                    title: "Congratulations!",
+                    text: "Login successfully!",
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000,
+                });
+                navigate(location?.state ? location.state : '/');
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -67,7 +99,7 @@ const SignUp = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name="password" placeholder="password" className="input input-bordered" required />
-                            
+
                         </div>
                         {/* CAPTCHA loading */}
                         {/* <div className="flex flex-col">
@@ -82,7 +114,9 @@ const SignUp = () => {
                         </div>
                         <div>
                             <Link to="/login">Do not have account? Here <span className="font-bold">Log in</span> </Link>
-
+                        </div>
+                        <div onClick={handleGoogleSignIn} className="flex justify-center">
+                            <button className="flex justify-center items-center text-2xl text-red-600 btn btn-circle"><FcGoogle /> </button>
                         </div>
                     </form>
                     {/* <GoogleLogin></GoogleLogin> */}
