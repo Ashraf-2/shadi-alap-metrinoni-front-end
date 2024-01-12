@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../AurhProviders/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import { FcGoogle } from "react-icons/fc";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
+
 const SignUp = () => {
-    const { user, isLoading, registerUser, updateUserProfile, googleLoginInPopUp } = useContext(AuthContext);
+    const { user, isLoading, registerUser, updateUserProfile, googleLoginInPopUp,setIsNewUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const axiosPublic = useAxiosPublic();
@@ -32,6 +33,7 @@ const SignUp = () => {
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 console.log(res);
+                                setIsNewUser(true);
                             })
                             .catch(error => {
                                 console.log(error);

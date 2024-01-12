@@ -4,30 +4,35 @@ import useBiodatas from "../../Hooks/useBiodatas";
 import { calCulateAge } from "../../Functions/calculateAgeFn";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useOwnInfo from "../../Hooks/useOwnInfo";
 
 const DetailsBioData = () => {
     const { _id } = useParams()
     const [sameGenderData, setSameGenderData] = useState([]);
-    // console.log(_id)
     const [biodatas, isLoading, isPending] = useBiodatas();       //load all biodatas
+
+    const [ownData, isLoadingOwnInfo] = useOwnInfo();
+    console.log("user own data in database: ",ownData);
+
     const individual_info = biodatas?.find(item => item._id == _id);       //filter desired specific data of the user.
-    console.log(individual_info);
+    const [isLoadingOthers, setIsloadingOthers] = useState(true);
+    const [isFavourite, setIsFavourite] = useState(false);
+
+    const axiosPublic = useAxiosPublic();
+    // console.log(_id)
+    // console.log('individual_info: ', individual_info);
     const { _id: id, image_url, gender, about_me, division_name, occupation, date_of_birth, full_name, membership } = individual_info || {};            //because after filtering 'individual_info' data is an array. and we need the first data of from the array.
 
     const age = calCulateAge(date_of_birth);        //calculate age of the user
-
-    // if(isLoading || isPending){
-    //     return <span className="loading loading-bars"></span>
-    // }
-    console.log(membership);
-    //fetching others but same gender data.
-    const [isLoadingOthers, setIsloadingOthers] = useState(true);
+    
+    //get others gender biodata.
     useEffect(() => {
         axios.get(`http://localhost:5000/biodataGender/${gender}`)
             .then(res => {
-                console.log('res.data', res.data);
+                // console.log('res.data', res.data);
                 const othersData = res.data.filter(item => item._id != _id);
-                console.log('others data: ', othersData);
+                // console.log('others data: ', othersData);
                 setSameGenderData(othersData);
                 setIsloadingOthers(false);
             })
@@ -36,8 +41,38 @@ const DetailsBioData = () => {
             })
     }, [_id, gender])
 
+    if(isLoading || isPending){
+        return <span className="loading loading-bars"></span>
+    }
+  
+    
+
     //section: for checkout
     const normal_user = true;
+
+
+    
+    const handleFavourite = async () => {
+        // console.log('isFavourite outside before click: ---', isFavourite);
+
+        setIsFavourite(!isFavourite);
+        // console.log('isFavourite outside after click: ---', isFavourite);
+
+        //TODO-1: if isFavourite === true ---> then use 'add' api to add the desired person in the favourite list of the user.
+        //TODO-2: if isFavourite === false --> then use 'delete' api to delete the desired person from the favourite list of the user.
+        
+        const body = {
+            favouriteID: _id       //this is fav id
+            // userOwnID: ownData._id,
+            // userOwnEmail: ownData.email,
+        }
+        console.log('userOwnID', body.userOwnID);
+        const res = await axiosPublic.patch(`/favouriteID/${ownData._id}`, body)
+        console.log(res.data);
+
+    }
+
+    // console.log('isFavourite outside after click: ---', isFavourite);
 
     return (
         <div>
@@ -78,20 +113,16 @@ const DetailsBioData = () => {
                             </Link>
                             {/* You can open the modal using document.getElementById('ID').showModal() method */}
                             {/* <button className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>open modal</button> */}
-                            <dialog id="my_modal_3" className="modal">
-                                <div className="modal-box">
-                                    <form method="dialog">
-                                        {/* if there is a button in form, it will close the modal */}
-                                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                    </form>
-                                    <h3 className="font-bold text-lg">Hello!</h3>
-                                    <p className="py-4">Press ESC key or click on ✕ button to close</p>
-                                </div>
-                            </dialog>
                         </div>
-
+                        {/* favourite button */}
                         <div className="text-center mt-5">
-                            <button className="btn btn-success bg-pink-500 text-white border-none">Add to favourite</button>
+                            <button style={{
+                                backgroundColor: isFavourite ? '#C499F3' : '#FF9BD2',
+                                opacity: 1,
+                            }}
+                                onClick={handleFavourite}
+                                className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">{isFavourite ? "Remove Favourite" : "Add to Favourite"}
+                            </button>
                         </div>
                     </div>
                 </div>

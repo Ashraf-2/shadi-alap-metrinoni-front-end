@@ -11,6 +11,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isNewUser, setIsNewUser] = useState(false);
 
     const googleProvider = new GoogleAuthProvider();
     // catch the user - sign in observer and keep the user state
@@ -64,7 +65,9 @@ const AuthProvider = ({ children }) => {
         logInwithEmailPass,
         updateUserProfile,
         logOut,
-        googleLoginInPopUp
+        googleLoginInPopUp,
+        isNewUser,
+        setIsNewUser,
     }
 
     return (
