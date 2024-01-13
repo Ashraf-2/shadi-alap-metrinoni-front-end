@@ -15,6 +15,7 @@ const DetailsBioData = () => {
     const [ownData, isLoadingOwnInfo] = useOwnInfo();
     console.log("user own data in database: ",ownData);
 
+
     const individual_info = biodatas?.find(item => item._id == _id);       //filter desired specific data of the user.
     const [isLoadingOthers, setIsloadingOthers] = useState(true);
     const [isFavourite, setIsFavourite] = useState(false);
@@ -26,6 +27,9 @@ const DetailsBioData = () => {
 
     const age = calCulateAge(date_of_birth);        //calculate age of the user
     
+    //TODO: make favourite button disable if the favID already in user OwnData favourites.
+    const isExistFav = ownData?.favourites?.find((item) => item === _id)
+    console.log("isExistFav: ", isExistFav); 
     //get others gender biodata.
     useEffect(() => {
         axios.get(`http://localhost:5000/biodataGender/${gender}`)
@@ -41,9 +45,9 @@ const DetailsBioData = () => {
             })
     }, [_id, gender])
 
-    if(isLoading || isPending){
-        return <span className="loading loading-bars"></span>
-    }
+    // if(isLoading ){
+    //     return <span className="loading loading-bars"></span>
+    // }
   
     
 
@@ -52,7 +56,8 @@ const DetailsBioData = () => {
 
 
     
-    const handleFavourite = async () => {
+    const handleFavourite = async (id) => {
+        console.log('own id: ', id);
         // console.log('isFavourite outside before click: ---', isFavourite);
 
         setIsFavourite(!isFavourite);
@@ -66,7 +71,7 @@ const DetailsBioData = () => {
             // userOwnID: ownData._id,
             // userOwnEmail: ownData.email,
         }
-        console.log('userOwnID', body.userOwnID);
+        // console.log('userOwnID', body.userOwnID);
         const res = await axiosPublic.patch(`/favouriteID/${ownData._id}`, body)
         console.log(res.data);
 
@@ -116,13 +121,17 @@ const DetailsBioData = () => {
                         </div>
                         {/* favourite button */}
                         <div className="text-center mt-5">
-                            <button style={{
+                            <button disabled={isFavourite || isExistFav} style={{
                                 backgroundColor: isFavourite ? '#C499F3' : '#FF9BD2',
+                                color: isFavourite && "white",
                                 opacity: 1,
                             }}
-                                onClick={handleFavourite}
-                                className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">{isFavourite ? "Remove Favourite" : "Add to Favourite"}
+                                onClick={()=> handleFavourite(ownData._id)}
+                                className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">Add to Favourite
                             </button>
+                            {
+                                isExistFav && <p className="italic text-xs">*You already make that person favourite</p>
+                            }
                         </div>
                     </div>
                 </div>
