@@ -6,6 +6,8 @@ const Navbar = () => {
 
     const { user, isLaoding, logOut } = useContext(AuthContext);
 
+    const isAdmin = true;
+
     const navLinks = <>
         <li>
             <NavLink to="/">Home</NavLink>
@@ -16,8 +18,13 @@ const Navbar = () => {
         <li><a>About Us</a></li>
         <li><a>Contact Us</a></li>
         {
-            user && <li>
-                <NavLink to="/">Dashboard</NavLink>
+            user && isAdmin && <li>
+                <NavLink to="/dashboard/adminDashboard">Dashboard</NavLink>
+            </li>
+        }
+        {
+            user && !isAdmin && <li>
+                <NavLink to="/dashboard/viewBiodata">Dashboard</NavLink>
             </li>
         }
     </>
@@ -71,7 +78,7 @@ const Navbar = () => {
                                     </span>
                                 </li>
                                 <li>
-                                    <Link to='/'>Dashboard</Link>
+                                    <Link to='/dashboard'>Dashboard</Link>
                                 </li>
                                 <li><span>{user.email ? user.email : "null"}</span></li>
                                 <li><button onClick={handleToSignOut}>Logout</button></li>
