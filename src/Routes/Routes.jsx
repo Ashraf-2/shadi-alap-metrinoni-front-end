@@ -7,6 +7,7 @@ import Login from "../Pages/Login/Login";
 import Biodatapage from "../Pages/BiodataPage/BiodataPage";
 import CheckoutPage from "../Pages/CheckOutPage/CheckoutPage";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const routes = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/detailsBioData/:_id',
-                element: <DetailsBioData></DetailsBioData>
+                element: <PrivateRoutes><DetailsBioData></DetailsBioData></PrivateRoutes>
             },
             {
                 path: '/signUp',

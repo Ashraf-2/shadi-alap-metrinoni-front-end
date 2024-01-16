@@ -154,7 +154,10 @@ const DetailsBioData = () => {
                                     <h2 className="card-title">Name: {item.full_name}</h2>
                                     <p>Age: {calCulateAge(item.date_of_birth)}</p>
                                     <div className="card-actions justify-end">
+                                        <Link to={`/detailsBioData/${item._id}`}>
+                            
                                         <button className="btn btn-ghost">See Details</button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>)
