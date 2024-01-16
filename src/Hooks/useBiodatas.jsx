@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./useAxiosPublic";
 import useAuth from "./useAuth";
-import axios from "axios";
 
 const useBiodatas = () => {
     const axiosPublic = useAxiosPublic();

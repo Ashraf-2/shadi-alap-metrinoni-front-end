@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../../firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 
 export const AuthContext = createContext(null);
@@ -12,6 +13,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isNewUser, setIsNewUser] = useState(false);
+    const axiosPublic = useAxiosPublic();
 
     const googleProvider = new GoogleAuthProvider();
     // catch the user - sign in observer and keep the user state
@@ -19,6 +21,22 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, currentUser=> {
             setUser(currentUser);
             console.log('user: ', currentUser);
+            if(currentUser){
+                //get token and store in client side.
+                const user = {email: currentUser.email}; 
+                const res = axiosPublic.post('/jwt',user)
+                .then(res => {
+                    // console.log(res.data.token);
+                    if(res.data){
+                        localStorage.setItem('access-token', res.data.token)
+                    }
+                })
+
+            }
+            else{
+                //remove token when user is logged out
+                localStorage.removeItem('access-token')
+            }
             setIsLoading(false);
         })
 

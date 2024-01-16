@@ -29,7 +29,7 @@ const SignUp = () => {
                 updateUserProfile(name, photoUrl)
                     .then(res => {
                         // alert('you are logged in')
-                        const userInfo = { name: name, email: email, membership: "normal" };
+                        const userInfo = { name: name, email: email, membership: "normal",role:"user" };
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 console.log(res);

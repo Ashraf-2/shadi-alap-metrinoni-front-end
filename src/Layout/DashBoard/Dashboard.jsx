@@ -1,13 +1,20 @@
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Dashboard = () => {
     // TODO: use useAdmin from server to get the perfect dashboard 
 
-    const isAdmin = false;      //fokirana style
+    // const isAdmin = true;      //fokirana style
+    const [isAdmin, isLoading] = useAdmin();
+    console.log(isAdmin)
+    if(isLoading){
+        return <span className="loading loading-ring"></span>
+    }
     return (
         <div className="flex">
             <div className="w-72 min-h-screen bg-blue-300">
                 {/* left side */}
+                <h1 className="pt-5 px-6 text-2xl text-center font-bold">Shadi-Alap</h1>
                 <ul className="menu p-4">
                     {
                         isAdmin ?

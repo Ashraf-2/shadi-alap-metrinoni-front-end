@@ -1,12 +1,18 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AurhProviders/AuthProvider";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Navbar = () => {
 
     const { user, isLaoding, logOut } = useContext(AuthContext);
 
-    const isAdmin = true;
+    // const isAdmin = true;
+    const [isAdmin, isAdminLoading] = useAdmin();
+    
+    if(isLaoding || isAdminLoading){
+        return <span className="loading loading-ring"></span>
+    }
 
     const navLinks = <>
         <li>
