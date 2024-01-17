@@ -53,6 +53,7 @@ const DetailsBioData = () => {
 
     //section: for checkout
     const normal_user = true;
+    console.log(ownData);
 
 
     

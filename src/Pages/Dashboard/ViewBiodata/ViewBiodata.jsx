@@ -16,7 +16,7 @@ const ViewBiodata = () => {
                 <div>
                     <p>please make complete your biodata first</p>
                     <Link to={'/dashboard/editBiodata'}>
-                        <button className="btn btn-link">Complet Biodata</button>
+                        <button className="btn btn-link">Complete Biodata</button>
                     </Link>
                 </div>
             }

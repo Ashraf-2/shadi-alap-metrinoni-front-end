@@ -4,12 +4,12 @@ import CheckOutForm from './CheckOutForm';
 
 //toDo: add publish able key.
 const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
-const Payment = () => {
+const Payment = ({_id}) => {
     return (
         <div>
             <h2 className="text-xl text-center font-medium">Please make your payment</h2>
             <Elements stripe={stripePromise}>
-                <CheckOutForm></CheckOutForm>
+                <CheckOutForm _id={_id}></CheckOutForm>
             </Elements>
         </div>
     );
