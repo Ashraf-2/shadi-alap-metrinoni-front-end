@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { GiMale, GiFemale } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { calCulateAge } from "../../../Functions/calculateAgeFn";
+import useBiodatas from "../../../Hooks/useBiodatas";
 
 
 
 const UserCardHome = () => {
     const [userCard, setUserCard] = useState();
     const [isLoading, setLoading] = useState(true);
+
+    const [biodatas, isLoadingBiodata] = useBiodatas();
 
 
 
@@ -50,7 +53,7 @@ const UserCardHome = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 ">
                 {
-                    userCard.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
+                    biodatas.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
                         <figure><img className=" w-32 h-32 rounded-full mt-5" src={onecard.image_url} alt="Shoes" /></figure>
                         <div className="card-body">
                             <p className="text-xl font-semibold text-center flex flex-row justify-center ">

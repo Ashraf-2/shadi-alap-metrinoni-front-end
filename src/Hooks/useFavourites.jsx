@@ -10,7 +10,12 @@ const useFavourites = () => {
         enabled: !isLoading,
         queryFn: async()=>{
             const res = await axiosSecure.get(`/favourite/${user?.email}`)
-            // console.log(res.data);
+            console.log(res.data);
+            // const favouritesIds = res.data;
+
+
+           
+            // return [favourites, individualBiodatas];
             return res.data;
         }
     })
