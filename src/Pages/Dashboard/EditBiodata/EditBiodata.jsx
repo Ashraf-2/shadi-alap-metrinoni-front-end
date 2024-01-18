@@ -186,7 +186,7 @@ const EditBiodata = () => {
                             <select value={selectParmanentDivision} onChange={handleParmanentDivision} className="select w-full max-w-xs" required>
                                 <option value='' disabled>Parmanent Division</option>
                                 <option value='Dhaka'>Dhaka</option>
-                                <option value='Mylhet'>Maymanshingh</option>
+                                <option value='Maymanshingh'>Maymanshingh</option>
                                 <option value='Sylhet'>Sylhet</option>
                                 <option value='Borishal'>Borishal</option>
                                 <option value='Chattogram'>Chattogram</option>
@@ -204,7 +204,7 @@ const EditBiodata = () => {
                             <select value={selectPresentDivision} onChange={handlePresentDivision} className="select w-full max-w-xs" required>
                                 <option value='' disabled>Present Division</option>
                                 <option value='Dhaka'>Dhaka</option>
-                                <option value='Mylhet'>Maymanshingh</option>
+                                <option value='Maymanshingh'>Maymanshingh</option>
                                 <option value='Sylhet'>Sylhet</option>
                                 <option value='Borishal'>Borishal</option>
                                 <option value='Chattogram'>Chattogram</option>

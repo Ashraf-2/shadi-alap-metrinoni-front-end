@@ -12,7 +12,7 @@ const DetailsBioData = () => {
     const [sameGenderData, setSameGenderData] = useState([]);
     const [biodatas, isLoading, isPending] = useBiodatas();       //load all biodatas
 
-    const [ownData, isLoadingOwnInfo] = useOwnInfo();
+    const [ownData, isLoadingOwnInfo] = useOwnInfo();   //user specifc information. [not biodata].
     console.log("user own data in database: ",ownData);
 
 
@@ -29,7 +29,8 @@ const DetailsBioData = () => {
     
     //TODO: make favourite button disable if the favID already in user OwnData favourites.
     const isExistFav = ownData?.favourites?.find((item) => item === _id)
-    console.log("isExistFav: ", isExistFav); 
+    // console.log("isExistFav: ", isExistFav); 
+    
     //get others gender biodata.
     useEffect(() => {
         axios.get(`http://localhost:5000/biodataGender/${gender}`)
@@ -53,7 +54,7 @@ const DetailsBioData = () => {
 
     //section: for checkout
     const normal_user = true;
-    console.log(ownData);
+    // console.log(ownData);
 
 
     
