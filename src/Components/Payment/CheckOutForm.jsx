@@ -1,6 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useOwnInfo from "../../Hooks/useOwnInfo";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const CheckOutForm = ({ _id }) => {
     const stripe = useStripe();
@@ -9,6 +12,27 @@ const CheckOutForm = ({ _id }) => {
     const [ownData] = useOwnInfo();
     const axiosSecure = useAxiosSecure();
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [requestedBiodataInfo, setRequestBiodataInfo] = useState(null);
+    const [isLoading, setIstLoading] = useState(true); 
+    useEffect(()=> {
+        // const res = axiosSecure.get(`/biodata/${_id}`)
+        axios.get(`http://localhost:5000/biodata/${_id}`)
+        .then(res =>{
+            console.log(res.data)
+            setRequestBiodataInfo(res.data)
+            setIstLoading(false);
+        })
+        .catch(error => console.log(error))
+
+    },[])
+    if(isLoading){
+        return <span className="loading loading-dots"></span>
+    }
+
+    const {full_name, image_url,mobile_number}  = requestedBiodataInfo || {};
+    console.log('biodata request for : ', requestedBiodataInfo);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -30,20 +54,34 @@ const CheckOutForm = ({ _id }) => {
 
         if (error) {
             console.log('[error]', error);
+            setErrorMessage(error);
         } else {
+            setErrorMessage('');
+            setSuccessMessage(`Your payment successfull and payment id: "${paymentMethod.id}"`)
+
             console.log('[PaymentMethod]', paymentMethod);
             const requestForContactInfo = {
-
                 requestedId: _id,
-                requestedPhoneNumber: '',
+                requestedPersonImage: image_url,
+                requestedPhoneNumber: mobile_number,
+                requestedForPersonName: full_name,
                 requesterId: ownData?._id,
                 requesterEmail: ownData?.email,
-                paid: '500',
-                
+                requestSuccessStatus: 'pending',
+                paid: 500,
             }
             console.log(requestForContactInfo);
-            const res = await axiosSecure.patch('/contact-request', requestForContactInfo);
+            const res = await axiosSecure.post('/contact-request', requestForContactInfo);
             console.log(res.data);
+            if(res.data?.insertedId){
+                Swal.fire({
+                    position: 'top-right',
+                    timer: 1500,
+                    showCloseButton: false,
+                    text: 'Thank You for your payment',
+                    title: "Payment Successfull!"
+                })
+            }
         }
     }
 
@@ -74,6 +112,11 @@ const CheckOutForm = ({ _id }) => {
                 <button className="btn btn-outline text-black   bg-pink-500 mt-5" type="submit" disabled={!stripe}>
                     Make Payment
                 </button>
+            </div>
+            <div>
+                {
+                    errorMessage && <p>{errorMessage}</p>
+                }
             </div>
         </form>
     );

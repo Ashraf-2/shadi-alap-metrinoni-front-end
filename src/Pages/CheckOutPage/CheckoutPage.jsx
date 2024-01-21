@@ -5,14 +5,20 @@ import useAuth from "../../Hooks/useAuth";
 import Payment from "../../Components/Payment/Payment";
 import useOwnInfo from "../../Hooks/useOwnInfo";
 import useOwnBiodata from "../../Hooks/useOwnBiodata";
+import CheckOutForm from "../../Components/Payment/CheckOutForm";
+import { Elements } from "@stripe/react-stripe-js";
+import {loadStripe} from '@stripe/stripe-js';
+
+
+const stripePromise = loadStripe(import.meta.env.VITE_PUBLISHABLE_KEY);
 
 const CheckoutPage = () => {
-    const { _id } = useParams();
+    const { _id } = useParams();        //id of biodata whom you need.
 
     const { user } = useAuth();
     // console.log(user);
     const [ownBioData] = useOwnBiodata();
-    console.log('own biodata: ', ownBioData);
+    // console.log('own biodata: ', ownBioData);
 
     return (
         <div>
@@ -51,7 +57,12 @@ const CheckoutPage = () => {
                     </div>
 
                     <div className=" my-5">
-                        <Payment _id={_id}></Payment>
+
+
+                        <h2 className="text-xl text-center font-medium">Please make your payment</h2>
+                        <Elements stripe={stripePromise}>
+                            <CheckOutForm _id={_id}></CheckOutForm>
+                        </Elements>
                     </div>
                 </div>
 

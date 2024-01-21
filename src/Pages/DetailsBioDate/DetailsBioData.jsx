@@ -12,7 +12,7 @@ import useFavourites from "../../Hooks/useFavourites";
 
 const DetailsBioData = () => {
     const {user} = useAuth();
-    const { _id } = useParams()
+    const { _id } = useParams()     //id of biodata holder person
     const [sameGenderData, setSameGenderData] = useState([]);
     const [biodatas, isLoading, isPending] = useBiodatas();       //load all biodatas
     const [favourites] = useFavourites();
@@ -119,8 +119,7 @@ const DetailsBioData = () => {
                             <Link to={`/checkout/${id}`}>
                                 <button hidden={!normal_user} className="btn btn-outline hover:bg-lime-400 text-black hover:text-black hover:border-none">Request for contact info</button>
                             </Link>
-                            {/* You can open the modal using document.getElementById('ID').showModal() method */}
-                            {/* <button className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>open modal</button> */}
+                            
                         </div>
                         {/* add favourite button */}
                     
