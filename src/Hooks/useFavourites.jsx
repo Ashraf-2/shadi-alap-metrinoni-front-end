@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 const useFavourites = () => {
     const {user, isLoading} = useAuth();
     const axiosSecure = useAxiosSecure();
-    const {data:favourites=[], isLoading:isLoadingFavourite} = useQuery({
+    const {data:favourites=[], isLoading:isLoadingFavourite, refetch} = useQuery({
         queryKey: ['favourites'],
         enabled: !isLoading,
         queryFn: async()=>{
@@ -20,7 +20,7 @@ const useFavourites = () => {
         }
     })
 
-    return [favourites,isLoadingFavourite];
+    return [favourites,isLoadingFavourite,refetch];
 };
 
 export default useFavourites;

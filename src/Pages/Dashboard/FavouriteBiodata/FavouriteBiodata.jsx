@@ -1,13 +1,20 @@
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useFavourites from "../../../Hooks/useFavourites";
 
 const FavouriteBiodata = () => {
-    const [favourite, isLoadingFavourite] = useFavourites();
-  
+    const [favourite, isLoadingFavourite,refetch] = useFavourites();
+    const axiosSecure = useAxiosSecure();
     console.log(favourite);
     // console.log(individualBiodatas);
     
     if (isLoadingFavourite) {
         return <span className="loading loading-dots"></span>
+    }
+    const handleDeleteFavourite = async(id)=> {
+        console.log('deletion id: ', id)
+        const res = await axiosSecure.delete(`/favourite/${id}`)
+        console.log(res.data);
+        refetch();
     }
     return (
         <div className="mt-5">
@@ -32,24 +39,24 @@ const FavouriteBiodata = () => {
                                     <td>
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-12 h-12">
-                                                <img src={item.image_url} />
+                                                <img src={item.image_url_Favourite} />
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p className="font-bold">{item.full_name}</p>
+                                        <p className="font-bold">{item.full_name_Favourite}</p>
                                     </td>
                                     <td>
-                                        <p>{item._id}</p>
+                                        <p>{item.refId_Favourite}</p>
                                     </td>
                                     <td>
-                                        <p>{item.division_name}</p>
+                                        <p>{item.division_Favourite}</p>
                                     </td>
                                     <td>
-                                        <p>{item.occupation}</p>
+                                        <p>{item.occupation_Favourite}</p>
                                     </td>
                                     <td>
-                                        <button className="btn btn-outline">Delete</button>
+                                        <button onClick={()=> handleDeleteFavourite(item._id)} className="btn btn-outline">Delete</button>
                                     </td>
                                 </tr>
                             )

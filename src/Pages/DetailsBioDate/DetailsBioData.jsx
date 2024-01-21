@@ -6,12 +6,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useOwnInfo from "../../Hooks/useOwnInfo";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import useFavourites from "../../Hooks/useFavourites";
 
 const DetailsBioData = () => {
+    const {user} = useAuth();
     const { _id } = useParams()
     const [sameGenderData, setSameGenderData] = useState([]);
     const [biodatas, isLoading, isPending] = useBiodatas();       //load all biodatas
-
+    const [favourites] = useFavourites();
     const [ownData, isLoadingOwnInfo] = useOwnInfo();   //user specifc information. [not biodata].
     console.log("user own data in database: ",ownData);
 
@@ -28,8 +32,9 @@ const DetailsBioData = () => {
     const age = calCulateAge(date_of_birth);        //calculate age of the user
     
     //TODO: make favourite button disable if the favID already in user OwnData favourites.
-    const isExistFav = ownData?.favourites?.find((item) => item === _id)
-    // console.log("isExistFav: ", isExistFav); 
+    // const isExistFav = ownData?.favourites?.find((item) => item === _id)
+    const isExistFav = favourites?.find((item) => item.refId_Favourite === _id)
+    console.log("isExistFav: ", isExistFav); 
     
     //get others gender biodata.
     useEffect(() => {
@@ -58,29 +63,25 @@ const DetailsBioData = () => {
 
 
     
-    const handleFavourite = async (id) => {
-        console.log('own id: ', id);
-        // console.log('isFavourite outside before click: ---', isFavourite);
-
-        setIsFavourite(!isFavourite);
-        // console.log('isFavourite outside after click: ---', isFavourite);
-
-        //TODO-1: if isFavourite === true ---> then use 'add' api to add the desired person in the favourite list of the user.
-        //TODO-2: if isFavourite === false --> then use 'delete' api to delete the desired person from the favourite list of the user.
-        
-        const body = {
-            favouriteID: _id       //this is fav id
-            // userOwnID: ownData._id,
-            // userOwnEmail: ownData.email,
-        }
-        // console.log('userOwnID', body.userOwnID);
-        const res = await axiosPublic.patch(`/favouriteID/${ownData._id}`, body)
-        console.log(res.data);
-
-    }
+   
 
     // console.log('isFavourite outside after click: ---', isFavourite);
-
+    const handleAddFavourite = async ()=> {
+        const doc = {
+            image_url_Favourite: individual_info?.image_url,
+            full_name_Favourite: individual_info?.full_name,
+            refId_Favourite: individual_info?._id,
+            division_Favourite: individual_info?.division_name,
+            occupation_Favourite: individual_info?.occupation,
+            userEmail: user?.email,
+        }
+        const res = await axiosPublic.put('/favourite',doc)
+        console.log(res.data);
+        if(res.data?.insertedId){
+            console.log('favourite person added to the data base')
+            setIsFavourite(true);
+        }
+    }
     return (
         <div>
             <h2 className="text-center font-bold text-xl text-red-400">Details individual biodata</h2>
@@ -121,20 +122,19 @@ const DetailsBioData = () => {
                             {/* You can open the modal using document.getElementById('ID').showModal() method */}
                             {/* <button className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>open modal</button> */}
                         </div>
-                        {/* favourite button */}
-                        <div className="text-center mt-5">
+                        {/* add favourite button */}
+                    
+                        <div  className="text-center mt-5">
                             <button disabled={isFavourite || isExistFav} style={{
-                                backgroundColor: isFavourite ? '#C499F3' : '#FF9BD2',
-                                color: isFavourite && "white",
+                                backgroundColor: isFavourite || isExistFav ? '#C499F3' : '#FF9BD2',
+                                color: isFavourite || isExistFav  && "white",
                                 opacity: 1,
-                            }}
-                                onClick={()=> handleFavourite(ownData._id)}
-                                className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">Add to Favourite
-                            </button>
-                            {
+                            }} onClick={handleAddFavourite} className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">new favourite add</button>
+                             {
                                 isExistFav && <p className="italic text-xs">*You already make that person favourite</p>
                             }
                         </div>
+
                     </div>
                 </div>
                 <div className="md:w-4/12">

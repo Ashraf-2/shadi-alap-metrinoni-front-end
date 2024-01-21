@@ -11,7 +11,7 @@ const useOwnBiodata = () => {
         queryKey: ['ownData'],
         enabled: !isAuthLoading,
         queryFn: async() => {
-            const res = await axiosSecure.get(`/biodata/${user?.email}`)
+            const res = await axiosSecure.get(`/biodata/person/${user?.email}`)
             // console.log(res.data);
             return res.data;
         }
