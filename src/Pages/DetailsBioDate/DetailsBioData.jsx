@@ -99,12 +99,13 @@ const DetailsBioData = () => {
                     </figure>
                     <div className="text-left mx-10 my-5 text-xl">
                         {/* bio informaiton */}
-                        <p> <span className="font-bold">About:</span> {about_me}</p>
                         <p><span className="font-bold">Age:</span> {age}</p>
                         <p><span className="font-bold">Gender:</span> {gender}</p>
                         <p><span className="font-bold">Division:</span> {division_name}</p>
                         <p><span className="font-bold">Occupation:</span> {occupation}</p>
                         <p><span className="font-bold">Membership:</span> {membership}</p>
+                        <p> <span className="font-bold">About:</span> {about_me}</p>
+
                         {/* <p><span className="font-bold">Contact Info:</span> {
                             membership?.membership ==='premium user'? "You will get it": "Not allowed"
                         }</p> */}

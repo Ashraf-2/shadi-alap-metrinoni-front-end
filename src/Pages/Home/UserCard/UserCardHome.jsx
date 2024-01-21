@@ -41,17 +41,17 @@ const UserCardHome = () => {
                 {
                     biodatas.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
                         <figure><img className=" w-32 h-32 rounded-full mt-5" src={onecard.image_url} alt="Shoes" /></figure>
-                        <div className="card-body">
+                        <div className=" card px-8 py-5">
                             <p className="text-xl font-semibold text-center flex flex-row justify-center ">
                                 {onecard.full_name}
-                                <span className="ml-2">
+                                <span className="ml-2 mb-5">
                                     {
                                         onecard.gender === 'male' ? <GiMale /> : <GiFemale />
                                     }
                                 </span>
                             </p>
                             <p><span className="font-semibold">ID</span>: {onecard._id}</p>
-                            <p>{onecard.about_me}</p>
+                            {/* <p>{onecard.about_me}</p> */}
                             <p><span className="font-semibold">Membership</span>: {onecard.membership}</p>
                             <p><span className="font-semibold">Occupation</span>: {onecard.occupation}</p>
                             <p><span className="font-semibold">Division</span>: {onecard.division_name}</p>
