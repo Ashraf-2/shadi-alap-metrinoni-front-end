@@ -1,9 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
-import Payment from "../../Components/Payment/Payment";
-import useOwnInfo from "../../Hooks/useOwnInfo";
 import useOwnBiodata from "../../Hooks/useOwnBiodata";
 import CheckOutForm from "../../Components/Payment/CheckOutForm";
 import { Elements } from "@stripe/react-stripe-js";

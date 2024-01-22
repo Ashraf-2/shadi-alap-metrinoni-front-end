@@ -1,12 +1,33 @@
+import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useUsers from "../../../Hooks/useUsers";
 
 const ManageUsers = () => {
-    const [users, isLoading, isPending] = useUsers();
+    const { user } = useAuth();
+    const [users, isLoading, isPending, refetch] = useUsers();
+    const axiosSecure = useAxiosSecure();
+
     if (isLoading || isPending) {
         return <span className="loading loading-ring"></span>
     }
     console.log(users)
     // console.log(users.map(item => console.log(item)));
+
+    const handleAdmin = async (id) => {
+        console.log('user id: ', id);
+        const res = await axiosSecure.patch(`/user/admin/${id}`)
+        if (res.data.modifiedCount > 0) {
+            Swal.fire({
+                position: "top-end",
+                title: `${user.name} is an Admin now`,
+                text: "User roll has been updated as admin.",
+                icon: "success",
+                timer: 1500,
+            });
+            refetch();
+        }
+    }
 
     return (
         <div>
@@ -28,7 +49,7 @@ const ManageUsers = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            users.map((item, index) => 
+                            users.map((item, index) =>
                                 <tr key={item._id}>
                                     <td>
                                         {index + 1}
@@ -44,7 +65,12 @@ const ManageUsers = () => {
                                         <button className="btn btn-outline">Make Premium</button>
                                     </td>
                                     <td>
-                                        <button className="btn btn-outline">Make Admin</button>
+                                        {
+                                            item.role === 'admin'?
+                                            <p className="badge badge-success text-sm text-white">Already Admin</p>
+                                            :
+                                            <button onClick={() => handleAdmin(item?._id)} className="btn btn-outline">Make Admin</button>
+                                        }
                                     </td>
                                 </tr>
                             )

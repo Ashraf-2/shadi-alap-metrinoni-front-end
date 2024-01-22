@@ -3,10 +3,11 @@ import useOwnBiodata from "../../../Hooks/useOwnBiodata";
 import { calCulateAge } from "../../../Functions/calculateAgeFn";
 import useAuth from "../../../Hooks/useAuth";
 import useOwnInfo from "../../../Hooks/useOwnInfo";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 const ViewBiodata = () => {
     const [ownBioData, isLoadingOwnBiodataInfo] = useOwnBiodata();
-    console.log(ownBioData);
-    const {user} = useAuth();
+    // console.log(ownBioData);
+    const {user, isLoading} = useAuth();
 
     const { _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name, membership,race,selectPresentDivision,email,mobile_number,partner_age,expected_partner_height,expected_partner_weight,father_name,mother_name, height,weight, about_me} = ownBioData; 
 
@@ -14,12 +15,17 @@ const ViewBiodata = () => {
     // if(isLoadingOwnBiodataInfo){
     //     return <span className="loading loading-dots"></span>
     // }
-
+    const axiosSecure = useAxiosSecure();
     const [ownData,isLoadingOwnInfo]= useOwnInfo();
     console.log('owndata: ',ownData);
-    const handlePremimum = (email)=> {
+    const handlePremimum = async (email)=> {
         console.log(email);
+        const res = await axiosSecure.patch(`/users/premimum/${user?.email}`, ownData);
     }
+
+    // if(isLoadingOwnBiodataInfo || isLoading || isLoadingOwnInfo){
+    //     return <span className=" loading loading-infinity"></span>
+    // }
     return (
         <div>
             <h2>View Biodata</h2>
