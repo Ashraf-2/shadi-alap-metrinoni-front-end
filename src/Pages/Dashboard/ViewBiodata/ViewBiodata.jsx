@@ -5,7 +5,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useOwnInfo from "../../../Hooks/useOwnInfo";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 const ViewBiodata = () => {
-    const [ownBioData, isLoadingOwnBiodataInfo] = useOwnBiodata();
+    const [ownBioData,refetch,isLoadingOwnBiodataInfo] = useOwnBiodata();
     // console.log(ownBioData);
     const {user, isLoading} = useAuth();
 
@@ -16,16 +16,17 @@ const ViewBiodata = () => {
     //     return <span className="loading loading-dots"></span>
     // }
     const axiosSecure = useAxiosSecure();
-    const [ownData,isLoadingOwnInfo]= useOwnInfo();
+    const [ownData,, isLoadingOwnInfo, isPending]= useOwnInfo();
     console.log('owndata: ',ownData);
     const handlePremimum = async (email)=> {
         console.log(email);
         const res = await axiosSecure.patch(`/users/premimum/${user?.email}`, ownData);
     }
+    console.log({isLoading, isLoadingOwnBiodataInfo,isLoadingOwnInfo})
 
-    // if(isLoadingOwnBiodataInfo || isLoading || isLoadingOwnInfo){
-    //     return <span className=" loading loading-infinity"></span>
-    // }
+    if(isLoadingOwnBiodataInfo || isLoading || isLoadingOwnInfo){
+        return <span className=" loading loading-infinity"></span>
+    }
     return (
         <div>
             <h2>View Biodata</h2>

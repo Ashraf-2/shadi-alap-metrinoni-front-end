@@ -29,6 +29,21 @@ const ManageUsers = () => {
         }
     }
 
+    const handlePremimum = async (id)=> {
+        console.log(id)
+        const res = await axiosSecure.patch(`/user/premium/${id}`)
+        if (res.data.modifiedCount > 0) {
+            Swal.fire({
+                position: "top-end",
+                title: `${user.name} is an Admin now`,
+                text: "User membership has been updated as a Premium user.",
+                icon: "success",
+                timer: 1500,
+            });
+            refetch();
+        }
+    }
+
     return (
         <div>
             <h2>Manage Users</h2>
@@ -42,8 +57,8 @@ const ManageUsers = () => {
                             <th>Index</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Make Admin</th>
                             <th>Make Premium</th>
+                            <th>Make Admin</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,14 +77,20 @@ const ManageUsers = () => {
                                     </td>
 
                                     <td>
-                                        <button className="btn btn-outline">Make Premium</button>
+                                        {
+                                            item.membership === 'premium' ? <p>Premimum User</p>
+                                                :
+                                                <button onClick={()=> handlePremimum(item?._id)} className="btn btn-outline">Make Premium</button>
+
+
+                                        }
                                     </td>
                                     <td>
                                         {
-                                            item.role === 'admin'?
-                                            <p className="badge badge-success text-sm text-white">Already Admin</p>
-                                            :
-                                            <button onClick={() => handleAdmin(item?._id)} className="btn btn-outline">Make Admin</button>
+                                            item.role === 'admin' ?
+                                                <p className="badge badge-success text-sm text-white">Already Admin</p>
+                                                :
+                                                <button onClick={() => handleAdmin(item?._id)} className="btn btn-outline">Make Admin</button>
                                         }
                                     </td>
                                 </tr>

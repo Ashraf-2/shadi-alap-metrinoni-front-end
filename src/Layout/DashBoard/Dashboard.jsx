@@ -12,7 +12,7 @@ const Dashboard = () => {
     }
     return (
         <div className="flex ">
-            <div className="w-72  min-h-screen bg-blue-300 ">
+            <div className="w-72  min-h-screen bg-blue-300">
                 {/* left side */}
                 <h1 className="pt-5 px-6 text-2xl text-center font-bold">Shadi-Alap</h1>
                 <ul className="menu p-4">

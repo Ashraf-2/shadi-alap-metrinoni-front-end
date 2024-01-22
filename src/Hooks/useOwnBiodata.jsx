@@ -8,7 +8,7 @@ const useOwnBiodata = () => {
     // const email = user?.email;
 
     const {data: ownBioData=[], refetch, isLoading:isLoadingOwnBiodataInfo, isPending} = useQuery({
-        queryKey: ['ownData'],
+        queryKey: ['ownBiodata'],
         enabled: !isAuthLoading,
         queryFn: async() => {
             const res = await axiosSecure.get(`/biodata/person/${user?.email}`)
