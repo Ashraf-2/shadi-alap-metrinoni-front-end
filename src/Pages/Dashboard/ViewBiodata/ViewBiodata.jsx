@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import useOwnBiodata from "../../../Hooks/useOwnBiodata";
 import { calCulateAge } from "../../../Functions/calculateAgeFn";
+import useAuth from "../../../Hooks/useAuth";
+import useOwnInfo from "../../../Hooks/useOwnInfo";
 const ViewBiodata = () => {
     const [ownBioData, isLoadingOwnBiodataInfo] = useOwnBiodata();
     console.log(ownBioData);
+    const {user} = useAuth();
 
     const { _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name, membership,race,selectPresentDivision,email,mobile_number,partner_age,expected_partner_height,expected_partner_weight,father_name,mother_name, height,weight, about_me} = ownBioData; 
 
@@ -11,6 +14,12 @@ const ViewBiodata = () => {
     // if(isLoadingOwnBiodataInfo){
     //     return <span className="loading loading-dots"></span>
     // }
+
+    const [ownData,isLoadingOwnInfo]= useOwnInfo();
+    console.log('owndata: ',ownData);
+    const handlePremimum = (email)=> {
+        console.log(email);
+    }
     return (
         <div>
             <h2>View Biodata</h2>
@@ -23,6 +32,7 @@ const ViewBiodata = () => {
                         </div>
                         <div className="mt-5">
                             
+                            <p className=""><span className="font-bold text-base">Membership ID</span>: {id}</p>
                             <p className=""><span className="font-bold text-base">Gender</span>: {gender}</p>
                             <p className=""><span className="font-bold text-base">Date Of Birth: {date_of_birth}</span></p>
                             <p className=""><span className="font-bold text-base">Height</span>: {height}</p>
@@ -42,7 +52,7 @@ const ViewBiodata = () => {
                             <p className=""><span className="font-bold text-base">About Me</span>: {about_me}</p>
                         </div>
                     </div>
-                    <div className="mt-5 text-right mr-10">
+                    <div onClick={()=> handlePremimum(user?.email)} className="mt-5 text-right mr-10">
                         <button className="btn btn-outline bg-green-400 border-none">Make Premimum</button>
                     </div>
                 </div>

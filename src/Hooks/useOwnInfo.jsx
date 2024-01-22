@@ -11,6 +11,7 @@ const useOwnInfo = () => {
     const {data: ownData=[], refetch, isLoading:isLoadingOwnInfo, isPending} = useQuery({
         queryKey: ['ownData'],
         queryFn: async() => {
+            // const res = await axiosPublic.get(`/us/${user?.email}`)
             const res = await axiosPublic.get(`/users/${user?.email}`)
             // console.log(res.data);
             return res.data;
