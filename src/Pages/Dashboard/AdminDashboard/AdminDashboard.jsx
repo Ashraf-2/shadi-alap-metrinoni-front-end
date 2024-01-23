@@ -3,27 +3,34 @@ import useBiodatas from '../../../Hooks/useBiodatas';
 import useUsers from '../../../Hooks/useUsers';
 
 const AdminDashboard = () => {
-    const [biodatas,isLoadingBiodata] = useBiodatas();
+    const [biodatas,,,isLoadingBiodata] = useBiodatas();        //getting all biodatas to count the number of male and female biodatas.
     // console.log(typeof(biodatas));
     // console.log(biodatas);
-    const [users, isLoadingUsers] = useUsers();
+    const [users, isLoadingUsers] = useUsers();         //get all users to find out the premium users
     console.log('total users: ', users)
+   
     const premiumUsers = users.filter(item=> {
         const premium = item.membership === 'premium';
-        return premium;
+        return premium; //counting premium users.
     })
-    console.log('premium users: ', premiumUsers);
 
     const maleBiodata = biodatas.filter(item => {           //getting the male biodatas
        const male =  item.gender === 'male';
         return male
     })
     
-    const femaleBiodata = biodatas.length - maleBiodata.length;
-    console.log('biodatas later ', biodatas)
-    console.log('male biodata: ', maleBiodata);
-    console.log('female later ', femaleBiodata)
-   
+    const femaleBiodata = biodatas.length - maleBiodata.length;    //getting the female biodatas 
+    // console.log('biodatas later ', biodatas)
+    // console.log('male biodata: ', maleBiodata);
+    // console.log('female later ', femaleBiodata)
+    // console.log('premium users: ', premiumUsers);
+
+    // console.log({isLoadingBiodata, isLoadingUsers})
+    if(isLoadingBiodata || isLoadingUsers){
+        return <div className='flex justify-center min-h-screen items-center text-center'>
+            <span className='loading loading-bars loading-lg'></span>
+        </div>
+    }
     return (
         <div>
             <h2>Admin Dasboard</h2>

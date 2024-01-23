@@ -114,10 +114,10 @@ const DetailsBioData = () => {
                             <p>
                                 <span className="text-xl font-bold">Contact Number: </span>
                                 {
-                                    ownData?.membership === 'premium' ? <span>{mobile_number}</span> : <span>Not Allowed</span>
+                                    ownData?.membership === 'premium' ||  ownData.email === email ? <span>{mobile_number}</span> : <span>Not Allowed</span>
                                 }
                             </p>
-                            <div hidden={ownData.membership === 'premium'}>
+                            <div hidden={ownData.membership === 'premium' ||  ownData.email === email}>
 
                                 <Link to={`/checkout/${id}`}>
                                     <button className="btn btn-outline hover:bg-lime-400 text-black hover:text-black hover:border-none">Request for contact info</button>

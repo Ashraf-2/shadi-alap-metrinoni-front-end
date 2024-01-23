@@ -61,12 +61,13 @@ const CheckOutForm = ({ _id }) => {
 
             console.log('[PaymentMethod]', paymentMethod);
             const requestForContactInfo = {
-                requestedId: _id,
-                requestedPersonImage: image_url,
-                requestedPhoneNumber: mobile_number,
+                requestedForId: _id,
+                requestedForPhoneNumber: mobile_number,
                 requestedForPersonName: full_name,
-                requesterId: ownData?._id,
-                requesterEmail: ownData?.email,
+                requestedForPersonImage: image_url,
+                requesterPersonName: ownData?.name,
+                requesterPersonId: ownData?._id,
+                requesterPersonEmail: ownData?.email,
                 requestSuccessStatus: 'pending',
                 paid: 500,
             }

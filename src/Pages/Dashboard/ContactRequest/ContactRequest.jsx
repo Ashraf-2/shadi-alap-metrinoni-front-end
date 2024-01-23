@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import useContactRequest from "../../../Hooks/useContactRequest";
+import useContactRequestUserSide from "../../../Hooks/useContactRequestUserSide";
 
 const ContactRequest = () => {
-    const [contactRequests, isLoading] = useContactRequest();
-    if (isLoading) {
+    const [ContactRequestsUser, isLoadingContactRequest,refetch] = useContactRequestUserSide();
+    if (isLoadingContactRequest) {
         return <span className="loading loading-bars"></span>
     }
-    console.log(contactRequests);
+    console.log(ContactRequestsUser);
     const handleDelete =() => {
         console.log('clicked on delete button')
     }
@@ -28,29 +29,31 @@ const ContactRequest = () => {
                     </thead>
                     <tbody>
                         {
-                            contactRequests.map((item,index) =>
+                            ContactRequestsUser.map((item,index) =>
                                 <tr key={item._id}>
                                     <td>{index+1}</td>
                                     <td>
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-20 h-16 object-cover">
-                                                <img src={item.requestedPersonImage} />
+                                                <img src={item.requestedForPersonImage} />
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <Link to={`/detailsBioData/${item.requestedId}`}>
+                                        <Link to={`/detailsBioData/${item.requestedForId}`}>
                                             <p className="font-bold btn-link btn text-black no-underline">{item.requestedForPersonName}</p>
                                         </Link>
                                     </td>
                                     <td>
-                                        <p>{item.requestedId}</p>
+                                        <p>{item.requestedForId}</p>
                                     </td>
                                     <td>
-                                        <p>{item.requestSuccessStatus}</p>
+                                        <p className={item.requestSuccessStatus === 'approved'? "badge badge-success text-white": "badge badge-error text-white"}>{item.requestSuccessStatus}</p>
                                     </td>
                                     <td>
-                                        <p>Mobile number</p>
+                                        {
+                                            item.requestSuccessStatus === 'pending'? "******": <span>{item.requestedForPhoneNumber}</span>
+                                        }
                                     </td>
                                     <td>
                                         <button onClick={() => handleDelete(item._id)} className="btn btn-outline">Delete</button>

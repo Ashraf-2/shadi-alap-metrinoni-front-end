@@ -8,7 +8,7 @@ const useContactRequest = () => {
     const {data:contactRequests = [], isLoading,refetch} = useQuery({
         queryKey: ['contactRequests'],
         queryFn: async()=> {
-            const res = await axiosSecure.get(`/contact-request/${user?.email}`)
+            const res = await axiosSecure.get('/contact-request')
             return res.data;
         }
     });

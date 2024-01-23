@@ -5,10 +5,10 @@ import useUsers from "../../../Hooks/useUsers";
 
 const ManageUsers = () => {
     const { user } = useAuth();
-    const [users, isLoading, isPending, refetch] = useUsers();
+    const [users, isLoading, refetch] = useUsers();
     const axiosSecure = useAxiosSecure();
 
-    if (isLoading || isPending) {
+    if (isLoading ) {
         return <span className="loading loading-ring"></span>
     }
     console.log(users)
@@ -37,6 +37,7 @@ const ManageUsers = () => {
                 title: "User membership has been updated as a Premium user.",
                 icon: "success",
                 timer: 1500,
+                showCloseButton: false,
             });
             refetch();
         }
