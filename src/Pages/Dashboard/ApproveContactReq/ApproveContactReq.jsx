@@ -20,6 +20,11 @@ const ApproveContactReq = () => {
             refetch();
         }
     }
+    if(isLoading){
+        return <div className=" flex items-center min-h-screen justify-center">
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
+    }
     return (
         <div>
             <h2>Approve Contact Request</h2>

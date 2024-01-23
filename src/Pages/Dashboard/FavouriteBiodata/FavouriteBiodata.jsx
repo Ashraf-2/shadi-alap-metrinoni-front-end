@@ -1,21 +1,25 @@
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useFavourites from "../../../Hooks/useFavourites";
+import useAuth from "../../../Hooks/useAuth";
 
 const FavouriteBiodata = () => {
+    const {user, isLoading} = useAuth();
     const [favourite, isLoadingFavourite, refetch] = useFavourites();
     const axiosSecure = useAxiosSecure();
-    console.log(favourite);
+    // console.log(favourite);
     // console.log(individualBiodatas);
 
-    if (isLoadingFavourite) {
-        return <span className="loading loading-dots"></span>
-    }
     const handleDeleteFavourite = async (id) => {
         console.log('deletion id: ', id)
         const res = await axiosSecure.delete(`/favourite/${id}`)
         console.log(res.data);
         refetch();
+    }
+    if (isLoadingFavourite || isLoading) {
+        return <div className=" flex items-center min-h-screen justify-center">
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
     }
     return (
         <div className="mt-5">

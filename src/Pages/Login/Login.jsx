@@ -10,7 +10,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     console.log("location: ", location);
-    console.log("navigate: ",navigate);
+    // console.log("navigate: ",navigate);
     const [loginError, setloginError] = useState("");
 
     const handleLogin = e => {

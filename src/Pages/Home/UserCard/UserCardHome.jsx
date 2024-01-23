@@ -10,7 +10,7 @@ const UserCardHome = () => {
     const [userCard, setUserCard] = useState();
     const [isLoading, setLoading] = useState(true);
 
-    const [biodatas, isLoadingBiodata] = useBiodatas();
+    const [biodatas, ,isLoadingBiodata] = useBiodatas();
 
 
     const sortByAge = (data) => {
@@ -29,13 +29,15 @@ const UserCardHome = () => {
                 setLoading(false);
             })
     }, [])
-    if (isLoading) {
-        return <span className="loading loading-spinner "></span>
+    if (isLoading || isLoadingBiodata) {
+        return <div className="flex items-center justify-center">
+            <span className="loading loading-infinity loading-lg"></span>
+        </div>
     }
     console.log(userCard);
     return (
-        <div className="my-10">
-            <h2 className="text-center text-4xl font-bold">Premium Members</h2>
+        <div className="my-5">
+            <h2 className="text-center text-4xl font-bold mb-5">Premium Members</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 ">
                 {

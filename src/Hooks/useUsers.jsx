@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 
@@ -18,7 +19,7 @@ const useUsers = () => {
     })
 
 
-    return [users, isLoadingUsers,refetch];
+    return [users,isLoadingUsers,refetch];
 };
 
 export default useUsers;

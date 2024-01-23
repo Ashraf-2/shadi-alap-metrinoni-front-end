@@ -32,7 +32,6 @@ const Home = () => {
     return (
         <div>
             <Banner></Banner>
-            <h2 className="text-center font-bold">this is home page</h2>
             <UserCardHome></UserCardHome>
             <WebsiteWorks></WebsiteWorks>
             <SuccessCounter></SuccessCounter>

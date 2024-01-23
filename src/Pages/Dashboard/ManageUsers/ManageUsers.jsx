@@ -4,12 +4,14 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useUsers from "../../../Hooks/useUsers";
 
 const ManageUsers = () => {
-    const { user } = useAuth();
-    const [users, isLoading, refetch] = useUsers();
+    const { user, isLoading} = useAuth();
+    const [users, isLoadingUsers, refetch] = useUsers();
     const axiosSecure = useAxiosSecure();
 
-    if (isLoading ) {
-        return <span className="loading loading-ring"></span>
+    if (isLoading || isLoadingUsers) {
+        return <div className=" flex items-center min-h-screen justify-center">
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
     }
     console.log(users)
     // console.log(users.map(item => console.log(item)));
@@ -28,7 +30,7 @@ const ManageUsers = () => {
         }
     }
 
-    const handlePremimum = async (id)=> {
+    const handlePremimum = async (id) => {
         console.log(id)
         const res = await axiosSecure.patch(`/user/premium/${id}`)
         if (res.data.modifiedCount > 0) {
@@ -79,7 +81,7 @@ const ManageUsers = () => {
                                         {
                                             item.membership === 'premium' ? <p>Premimum User</p>
                                                 :
-                                                <button onClick={()=> handlePremimum(item?._id)} className="btn btn-outline">Make Premium</button>
+                                                <button onClick={() => handlePremimum(item?._id)} className="btn btn-outline">Make Premium</button>
 
 
                                         }

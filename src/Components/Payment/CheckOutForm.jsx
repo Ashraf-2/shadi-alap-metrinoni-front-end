@@ -28,7 +28,9 @@ const CheckOutForm = ({ _id }) => {
 
     },[])
     if(isLoading){
-        return <span className="loading loading-dots"></span>
+        return <div className=" flex items-center min-h-screen justify-center">
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
     }
 
     const {full_name, image_url,mobile_number}  = requestedBiodataInfo || {};

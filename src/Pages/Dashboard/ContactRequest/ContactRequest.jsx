@@ -1,15 +1,20 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
-import useContactRequest from "../../../Hooks/useContactRequest";
 import useContactRequestUserSide from "../../../Hooks/useContactRequestUserSide";
 
 const ContactRequest = () => {
-    const [ContactRequestsUser, isLoadingContactRequest,refetch] = useContactRequestUserSide();
-    if (isLoadingContactRequest) {
-        return <span className="loading loading-bars"></span>
-    }
+    const [ContactRequestsUser, isLoadingContactRequest, refetch] = useContactRequestUserSide();
+   
     console.log(ContactRequestsUser);
-    const handleDelete =() => {
+    const handleDelete = () => {
         console.log('clicked on delete button')
+    }
+
+    // loading bar
+    if (isLoadingContactRequest) {
+        return <div className=" flex items-center min-h-screen justify-center">
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
     }
     return (
         <div>
@@ -29,9 +34,9 @@ const ContactRequest = () => {
                     </thead>
                     <tbody>
                         {
-                            ContactRequestsUser.map((item,index) =>
+                            ContactRequestsUser.map((item, index) =>
                                 <tr key={item._id}>
-                                    <td>{index+1}</td>
+                                    <td>{index + 1}</td>
                                     <td>
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-20 h-16 object-cover">
@@ -48,11 +53,11 @@ const ContactRequest = () => {
                                         <p>{item.requestedForId}</p>
                                     </td>
                                     <td>
-                                        <p className={item.requestSuccessStatus === 'approved'? "badge badge-success text-white": "badge badge-error text-white"}>{item.requestSuccessStatus}</p>
+                                        <p className={item.requestSuccessStatus === 'approved' ? "badge badge-success text-white" : "badge badge-error text-white"}>{item.requestSuccessStatus}</p>
                                     </td>
                                     <td>
                                         {
-                                            item.requestSuccessStatus === 'pending'? "******": <span>{item.requestedForPhoneNumber}</span>
+                                            item.requestSuccessStatus === 'pending' ? "******" : <span>{item.requestedForPhoneNumber}</span>
                                         }
                                     </td>
                                     <td>

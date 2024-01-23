@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import useOwnBiodata from "../../../Hooks/useOwnBiodata";
 import { calCulateAge } from "../../../Functions/calculateAgeFn";
@@ -14,19 +15,19 @@ const ViewBiodata = () => {
 
     const { _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name, race, selectPresentDivision, email, mobile_number, partner_age, expected_partner_height, expected_partner_weight, father_name, mother_name, height, weight, about_me } = ownBioData;
 
-    ////BIG PROBLEM ___ 
-    // if(isLoadingOwnBiodataInfo){
-    //     return <span className="loading loading-dots"></span>
-    // }
+
     const axiosSecure = useAxiosSecure();
     const [ownData, , isLoadingOwnInfo, isPending] = useOwnInfo();
     console.log('owndata: ', ownData);
 
     console.log({ isLoading, isLoadingOwnBiodataInfo, isLoadingOwnInfo })
 
-    // if(isLoadingOwnBiodataInfo || isLoading || isLoadingOwnInfo){
-    //     return <span className=" loading loading-infinity"></span>
-    // }
+    if (isLoadingOwnBiodataInfo || isLoading || isLoadingOwnInfo) {
+        return <div className=" flex items-center min-h-screen justify-center">
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
+    }
+
 
     if (!ownBioData) {
         return <dir><p>No Biodata</p></dir>
@@ -39,7 +40,7 @@ const ViewBiodata = () => {
             showCancelButton: true,
             confirmButtonText: "Yes",
             // denyButtonText: `Don't save`
-        }).then( async (result) => {
+        }).then(async (result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 const res = await axiosSecure.patch(`/user/MakePremium/${id}`)
@@ -50,7 +51,7 @@ const ViewBiodata = () => {
                 }
             }
         });
-       
+
 
     }
     return (

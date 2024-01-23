@@ -5,13 +5,13 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useOwnBiodata from "../../../Hooks/useOwnBiodata";
 
 const EditBiodata = () => {
-    const { user } = useAuth();
+    const { user, isLoading } = useAuth();
     const [selectGender, setSelectGender] = useState('');
     const [selectParmanentDivision, setSelectParmanentDivision] = useState('');
     const [selectPresentDivision, setSelectPresentDivision] = useState('');
     const axiosPublic = useAxiosPublic();
 
-    const [ownBioData,refetch,isLoadingOwnBiodataInfo] = useOwnBiodata();
+    const [ownBioData, refetch, isLoadingOwnBiodataInfo] = useOwnBiodata();
     console.log('own biodata: ', ownBioData)
     const handleGender = (e) => {
         const gender = e.target.value;
@@ -79,6 +79,12 @@ const EditBiodata = () => {
         console.log(res.data);
 
     }
+
+    if (isLoadingOwnBiodataInfo || isLoading) {
+        return <div className=" flex items-center min-h-screen justify-center">
+            <span className="loading loading-bars loading-lg"></span>
+        </div>
+    }
     return (
         <div>
             <h2 className=" text-center font-medium">Complete/Edit Biodata</h2>
@@ -89,7 +95,7 @@ const EditBiodata = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="text" name="name" placeholder={ownBioData.full_name? ownBioData.full_name:"full name"} className="input input-bordered" required />
+                            <input type="text" name="name" placeholder={ownBioData.full_name ? ownBioData.full_name : "full name"} className="input input-bordered" required />
 
                         </div>
                         <div className="form-control">
@@ -125,14 +131,14 @@ const EditBiodata = () => {
                             <label className="label">
                                 <span className="label-text">Height</span>
                             </label>
-                            <input type="text" name="height" placeholder={ownBioData.height?ownBioData.height:"height"} className="input input-bordered" required />
+                            <input type="text" name="height" placeholder={ownBioData.height ? ownBioData.height : "height"} className="input input-bordered" required />
 
                         </div>
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text">Weight</span>
                             </label>
-                            <input type="text" name="weight" placeholder={ownBioData.weight?ownBioData.weight:"weight"} className="input input-bordered" required />
+                            <input type="text" name="weight" placeholder={ownBioData.weight ? ownBioData.weight : "weight"} className="input input-bordered" required />
 
                         </div>
                     </div>
@@ -148,14 +154,14 @@ const EditBiodata = () => {
                             <label className="label">
                                 <span className="label-text">Occupation</span>
                             </label>
-                            <input type="text" name="occupation" placeholder={ownBioData.occupation?ownBioData.occupation:"Occupation"} className="input input-bordered" required />
+                            <input type="text" name="occupation" placeholder={ownBioData.occupation ? ownBioData.occupation : "Occupation"} className="input input-bordered" required />
 
                         </div>
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text">Race</span>
                             </label>
-                            <input type="text" name="race" placeholder={ownBioData.race?ownBioData.race:"race"} className="input input-bordered" required />
+                            <input type="text" name="race" placeholder={ownBioData.race ? ownBioData.race : "race"} className="input input-bordered" required />
 
                         </div>
                     </div>
@@ -166,14 +172,14 @@ const EditBiodata = () => {
                             <label className="label">
                                 <span className="label-text">Fathers name</span>
                             </label>
-                            <input type="text" name="father_name" placeholder={ownBioData.father_name?ownBioData.father_name:"father name"} className="input input-bordered" required />
+                            <input type="text" name="father_name" placeholder={ownBioData.father_name ? ownBioData.father_name : "father name"} className="input input-bordered" required />
 
                         </div>
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text">Mothers name</span>
                             </label>
-                            <input type="text" name="mother_name" placeholder={ownBioData.mother_name?ownBioData.mother_name:"mother name"} className="input input-bordered" required />
+                            <input type="text" name="mother_name" placeholder={ownBioData.mother_name ? ownBioData.mother_name : "mother name"} className="input input-bordered" required />
 
                         </div>
                     </div>
@@ -220,21 +226,21 @@ const EditBiodata = () => {
                             <label className="label">
                                 <span className="label-text">Expected Partner Age</span>
                             </label>
-                            <input type="number" name="partner_age" placeholder={ownBioData.partner_age?ownBioData.partner_age:"partner Age"} className="input input-bordered" required />
+                            <input type="number" name="partner_age" placeholder={ownBioData.partner_age ? ownBioData.partner_age : "partner Age"} className="input input-bordered" required />
 
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Expected Partner Height</span>
                             </label>
-                            <input type="text" name="expected_partner_height" placeholder={ownBioData.expected_partner_height?ownBioData.expected_partner_height:"partner height"} className="input input-bordered" required />
+                            <input type="text" name="expected_partner_height" placeholder={ownBioData.expected_partner_height ? ownBioData.expected_partner_height : "partner height"} className="input input-bordered" required />
 
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Expected Partner Weight</span>
                             </label>
-                            <input type="text" name="expected_partner_weight" placeholder={ownBioData.expected_partner_weight?ownBioData.expected_partner_weight:"partner weight"} className="input input-bordered" required />
+                            <input type="text" name="expected_partner_weight" placeholder={ownBioData.expected_partner_weight ? ownBioData.expected_partner_weight : "partner weight"} className="input input-bordered" required />
 
                         </div>
                     </div>
@@ -250,7 +256,7 @@ const EditBiodata = () => {
                             <label className="label">
                                 <span className="label-text">Contact Number</span>
                             </label>
-                            <input type="text" name="mobile_number" placeholder={ownBioData.mobile_number?ownBioData.mobile_number:"mobile number"} className="input input-bordered" />
+                            <input type="text" name="mobile_number" placeholder={ownBioData.mobile_number ? ownBioData.mobile_number : "mobile number"} className="input input-bordered" />
 
                         </div>
                     </div>
@@ -258,7 +264,7 @@ const EditBiodata = () => {
                         <label className="label">
                             <span className="label-text">About Me</span>
                         </label>
-                        <input type="text" name="about_me" placeholder={ownBioData.about_me?ownBioData.about_me:"about me"} className="input input-bordered" />
+                        <input type="text" name="about_me" placeholder={ownBioData.about_me ? ownBioData.about_me : "about me"} className="input input-bordered" />
 
                     </div>
 

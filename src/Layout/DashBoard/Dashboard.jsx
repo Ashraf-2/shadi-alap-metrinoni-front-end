@@ -1,14 +1,21 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
+import useAuth from "../../Hooks/useAuth";
 
 const Dashboard = () => {
     // TODO: use useAdmin from server to get the perfect dashboard 
-
+    const {logOut} = useAuth();
     // const isAdmin = true;      //fokirana style
     const [isAdmin, isLoading] = useAdmin();
+    const navigate = useNavigate();
     console.log(isAdmin)
-    if(isLoading){
+    if (isLoading) {
         return <span className="loading loading-ring"></span>
+    }
+
+    const handleToSignOut = () => {
+        logOut()
+        navigate('/');
     }
     return (
         <div className="flex ">
@@ -55,6 +62,7 @@ const Dashboard = () => {
                     <li>
                         <NavLink to={'/'}>Home</NavLink>
                     </li>
+                    <button onClick={handleToSignOut} className="btn btn-outline text-center text-lg my-2">Log Out</button>
                 </ul>
             </div>
             {/* w-[calc(100%-288px)] --> not working if i used fixed for the left side */}

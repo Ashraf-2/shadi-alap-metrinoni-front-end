@@ -3,10 +3,10 @@ import usePremiumRequest from "../../../Hooks/usePremiumRequest";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ApprovePremium = () => {
-    const [premiumRequests, isLoading,refetch] = usePremiumRequest();
+    const [premiumRequests, isLoading, refetch] = usePremiumRequest();
     console.log(premiumRequests);
     const axiosSecure = useAxiosSecure();
-    const handlePremimum = async (id)=> {
+    const handlePremimum = async (id) => {
         console.log(id)
         const res = await axiosSecure.patch(`/user/premium/${id}`)
         if (res.data.modifiedCount > 0) {
@@ -18,6 +18,11 @@ const ApprovePremium = () => {
             });
             refetch();
         }
+    }
+    if (isLoading) {
+        return <div className='flex justify-center min-h-screen items-center text-center'>
+            <span className='loading loading-bars loading-lg'></span>
+        </div>
     }
     return (
         <div>
@@ -57,12 +62,12 @@ const ApprovePremium = () => {
                                         {
                                             item.membership === 'premium' ? <p>Premimum User</p>
                                                 :
-                                                <button onClick={()=> handlePremimum(item?._id)} className="btn btn-outline">Make Premium</button>
+                                                <button onClick={() => handlePremimum(item?._id)} className="btn btn-outline">Make Premium</button>
 
 
                                         }
                                     </td>
-                                    
+
                                 </tr>
                             )
                         }

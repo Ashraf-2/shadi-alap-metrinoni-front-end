@@ -6,13 +6,15 @@ import UserCardHome from "../Home/UserCard/UserCardHome";
 import SingleBioData from "./singleBioData";
 
 const BiodataPage = () => {
-    const [biodatas, refetch, isLoading] = useBiodatas();
+    const [biodatas,refetch, isLoadingBiodata] = useBiodatas();
     const [selectedDivision, setSelectedDivision] = useState('');
     const [selectGender, setSelectGender] = useState('');
 
 
-    if (isLoading) {
-        return <span className="loading loading-spinner"></span>
+    if (isLoadingBiodata) {
+        return <div className="flex items-center justify-center">
+            <span className="loading loading-infinity loading-lg"></span>
+        </div>
     }
     console.log(biodatas);
 
@@ -35,18 +37,17 @@ const BiodataPage = () => {
             // all division and all gender base
             return true;
         }
-        if(selectGender && selectedDivision === ''){
+        if (selectGender && selectedDivision === '') {
             // only based on gender and all division
             console.log('only gender base')
             return item.gender.toLowerCase() === selectGender;
         }
-        if(selectGender === 'male and female' )
-        {
+        if (selectGender === 'male and female') {
             // all male and female , not bound to any division
             console.log('male and female based')
             return item.division_name.toLowerCase() === selectedDivision;
         }
-        
+
         if (selectGender) {
             // based on gender and division
             return item.division_name.toLowerCase() === selectedDivision && item.gender.toLowerCase() === selectGender;
@@ -61,10 +62,9 @@ const BiodataPage = () => {
 
     return (
         <div>
-            <h2>this is biodata page</h2>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 my-10">
                 {/* SELECT DIVISION */}
-                <div className="col-span-2 bg-slate-300 ">
+                <div className="col-span-2 bg-slate-300 px-1 rounded-lg">
                     <div className=" my-2">
                         <select value={selectedDivision} onChange={handleSelect} className="select select-bordered w-full max-w-xs">
                             <option value='' disabled >Filter division</option>
@@ -79,7 +79,7 @@ const BiodataPage = () => {
                     </div>
                     {/* SELECT GENDER */}
 
-                    <div className="bg-slate-300">
+                    <div className="">
                         <select value={selectGender} onChange={handleSelectGender} className="select select-bordered w-full max-w-xs">
                             <option disabled value='' >Filter Gender</option>
                             <option value='male'>Male</option>
@@ -88,7 +88,7 @@ const BiodataPage = () => {
                         </select>
                     </div>
                 </div>
-                <div className=" col-span-10 bg-red-200 text-center text-xl p-5">
+                <div className=" col-span-10 text-center text-xl p-5 rounded-lg bg-red-100">
                     {
                         filtered_data.length ?
                             <div className="grid grid-cols-3 gap-5">
@@ -98,7 +98,7 @@ const BiodataPage = () => {
                                 }
                             </div>
                             :
-                            <p>noo data</p>
+                            <p className="text-center font-bold">Sorry! No Data Found.</p>
 
                     }
 
