@@ -20,8 +20,7 @@ const ManageUsers = () => {
         if (res.data.modifiedCount > 0) {
             Swal.fire({
                 position: "top-end",
-                title: `${user.name} is an Admin now`,
-                text: "User roll has been updated as admin.",
+                title: "User roll has been updated as admin.",
                 icon: "success",
                 timer: 1500,
             });
@@ -35,8 +34,7 @@ const ManageUsers = () => {
         if (res.data.modifiedCount > 0) {
             Swal.fire({
                 position: "top-end",
-                title: `${user.name} is an Admin now`,
-                text: "User membership has been updated as a Premium user.",
+                title: "User membership has been updated as a Premium user.",
                 icon: "success",
                 timer: 1500,
             });

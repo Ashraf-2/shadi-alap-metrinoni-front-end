@@ -11,13 +11,13 @@ import Swal from "sweetalert2";
 import useFavourites from "../../Hooks/useFavourites";
 
 const DetailsBioData = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     const { _id } = useParams()     //id of biodata holder person
     const [sameGenderData, setSameGenderData] = useState([]);
     const [biodatas, isLoading, isPending] = useBiodatas();       //load all biodatas
     const [favourites] = useFavourites();
     const [ownData, isLoadingOwnInfo] = useOwnInfo();   //user specifc information. [not biodata].
-    console.log("user own data in database: ",ownData);
+    console.log("user own data in database: ", ownData);
 
 
     const individual_info = biodatas?.find(item => item._id == _id);       //filter desired specific data of the user.
@@ -27,15 +27,15 @@ const DetailsBioData = () => {
     const axiosPublic = useAxiosPublic();
     // console.log(_id)
     // console.log('individual_info: ', individual_info);
-    const { _id: id, image_url, gender, about_me, division_name, occupation, date_of_birth, full_name, membership } = individual_info || {};            //because after filtering 'individual_info' data is an array. and we need the first data of from the array.
+    const {  _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name,race,selectPresentDivision,email,mobile_number,partner_age,expected_partner_height,expected_partner_weight,father_name,mother_name, height,weight, about_me} = individual_info || {};            //because after filtering 'individual_info' data is an array. and we need the first data of from the array.
 
     const age = calCulateAge(date_of_birth);        //calculate age of the user
-    
+
     //TODO: make favourite button disable if the favID already in user OwnData favourites.
     // const isExistFav = ownData?.favourites?.find((item) => item === _id)
     const isExistFav = favourites?.find((item) => item.refId_Favourite === _id)
-    console.log("isExistFav: ", isExistFav); 
-    
+    console.log("isExistFav: ", isExistFav);
+
     //get others gender biodata.
     useEffect(() => {
         axios.get(`http://localhost:5000/biodataGender/${gender}`)
@@ -54,19 +54,10 @@ const DetailsBioData = () => {
     // if(isLoading ){
     //     return <span className="loading loading-bars"></span>
     // }
-  
-    
 
-    //section: for checkout
-    const normal_user = true;
-    // console.log(ownData);
-
-
-    
-   
 
     // console.log('isFavourite outside after click: ---', isFavourite);
-    const handleAddFavourite = async ()=> {
+    const handleAddFavourite = async () => {
         const doc = {
             image_url_Favourite: individual_info?.image_url,
             full_name_Favourite: individual_info?.full_name,
@@ -75,9 +66,9 @@ const DetailsBioData = () => {
             occupation_Favourite: individual_info?.occupation,
             userEmail: user?.email,
         }
-        const res = await axiosPublic.put('/favourite',doc)
+        const res = await axiosPublic.put('/favourite', doc)
         console.log(res.data);
-        if(res.data?.insertedId){
+        if (res.data?.insertedId) {
             console.log('favourite person added to the data base')
             setIsFavourite(true);
         }
@@ -99,11 +90,20 @@ const DetailsBioData = () => {
                     </figure>
                     <div className="text-left mx-10 my-5 text-xl">
                         {/* bio informaiton */}
+                        <p><span className="font-bold">Date of birth:</span> {date_of_birth}</p>
                         <p><span className="font-bold">Age:</span> {age}</p>
                         <p><span className="font-bold">Gender:</span> {gender}</p>
-                        <p><span className="font-bold">Division:</span> {division_name}</p>
+                        <p><span className="font-bold">Height:</span> {height} Feet</p>
+                        <p><span className="font-bold">Weight:</span> {weight} Kg</p>
                         <p><span className="font-bold">Occupation:</span> {occupation}</p>
-                        <p><span className="font-bold">Membership:</span> {membership}</p>
+                        <p><span className="font-bold">Race:</span> {race}</p>
+                        <p><span className="font-bold">Parmanent Division:</span> {division_name}</p>
+                        <p><span className="font-bold">Present Division:</span> {selectPresentDivision}</p>
+                        <p><span className="font-bold">Expected Partner Age:</span> {partner_age} </p>
+                        <p><span className="font-bold">Expected Partner Height:</span> {expected_partner_height} Feet</p>
+                        <p><span className="font-bold">Expected Partner Weight:</span> {expected_partner_weight} Kg</p>
+                        <p><span className="font-bold">Occupation:</span> {occupation}</p>
+                       
                         <p> <span className="font-bold">About:</span> {about_me}</p>
 
                         {/* <p><span className="font-bold">Contact Info:</span> {
@@ -112,25 +112,28 @@ const DetailsBioData = () => {
                         <div className="flex flex-col md:flex-row items-center justify-between">
                             {/* contact visibility section */}
                             <p>
-                                <span className="text-xl font-bold">Contact: </span>
+                                <span className="text-xl font-bold">Contact Number: </span>
                                 {
-                                    normal_user ? <span>You will not be given the contact info</span> : <span>Allowed</span>
+                                    ownData?.membership === 'premium' ? <span>{mobile_number}</span> : <span>Not Allowed</span>
                                 }
                             </p>
-                            <Link to={`/checkout/${id}`}>
-                                <button hidden={!normal_user} className="btn btn-outline hover:bg-lime-400 text-black hover:text-black hover:border-none">Request for contact info</button>
-                            </Link>
-                            
+                            <div hidden={ownData.membership === 'premium'}>
+
+                                <Link to={`/checkout/${id}`}>
+                                    <button className="btn btn-outline hover:bg-lime-400 text-black hover:text-black hover:border-none">Request for contact info</button>
+                                </Link>
+                            </div>
+
                         </div>
                         {/* add favourite button */}
-                    
-                        <div  className="text-center mt-5">
-                            <button disabled={isFavourite || isExistFav} style={{
+
+                        <div className="text-center mt-5">
+                            <button disabled={isFavourite || isExistFav || ownData.email === email} style={{
                                 backgroundColor: isFavourite || isExistFav ? '#C499F3' : '#FF9BD2',
-                                color: isFavourite || isExistFav  && "white",
+                                color: isFavourite || isExistFav && "white",
                                 opacity: 1,
-                            }} onClick={handleAddFavourite} className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">new favourite add</button>
-                             {
+                            }} onClick={handleAddFavourite} className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">App Favourite</button>
+                            {
                                 isExistFav && <p className="italic text-xs">*You already make that person favourite</p>
                             }
                         </div>
@@ -157,8 +160,8 @@ const DetailsBioData = () => {
                                     <p>Age: {calCulateAge(item.date_of_birth)}</p>
                                     <div className="card-actions justify-end">
                                         <Link to={`/detailsBioData/${item._id}`}>
-                            
-                                        <button className="btn btn-ghost">See Details</button>
+
+                                            <button className="btn btn-ghost">See Details</button>
                                         </Link>
                                     </div>
                                 </div>
