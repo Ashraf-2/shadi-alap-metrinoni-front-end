@@ -3,10 +3,10 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useUsers = () => {
     const axiosSecure = useAxiosSecure();
-    const {data: users=[], isLoading,isPending, refetch} = useQuery({
+    const {data: users=[], isLoading:isLoadingUsers,isPending, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async()=> {
-            const res = await axiosSecure('/users', {
+            const res = await axiosSecure.get('/users', {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('access-token')}`
                 }
@@ -18,7 +18,7 @@ const useUsers = () => {
     })
 
 
-    return [users, isLoading,isPending, refetch];
+    return [users, isLoadingUsers];
 };
 
 export default useUsers;

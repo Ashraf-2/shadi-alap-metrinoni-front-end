@@ -7,58 +7,64 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
 const ViewBiodata = () => {
-    const [ownBioData,refetch,isLoadingOwnBiodataInfo] = useOwnBiodata();
+    const [ownBioData, refetch, isLoadingOwnBiodataInfo] = useOwnBiodata();
     console.log(ownBioData);
-    const {user, isLoading} = useAuth();
-    const [isClickPremium,setIsClickPremium] = useState(false);
+    const { user, isLoading } = useAuth();
+    const [isClickPremium, setIsClickPremium] = useState(false);
 
-    const { _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name,race,selectPresentDivision,email,mobile_number,partner_age,expected_partner_height,expected_partner_weight,father_name,mother_name, height,weight, about_me} = ownBioData ; 
+    const { _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name, race, selectPresentDivision, email, mobile_number, partner_age, expected_partner_height, expected_partner_weight, father_name, mother_name, height, weight, about_me } = ownBioData;
 
     ////BIG PROBLEM ___ 
     // if(isLoadingOwnBiodataInfo){
     //     return <span className="loading loading-dots"></span>
     // }
     const axiosSecure = useAxiosSecure();
-    const [ownData,, isLoadingOwnInfo, isPending]= useOwnInfo();
-    console.log('owndata: ',ownData);
-   
-    console.log({isLoading, isLoadingOwnBiodataInfo,isLoadingOwnInfo})
+    const [ownData, , isLoadingOwnInfo, isPending] = useOwnInfo();
+    console.log('owndata: ', ownData);
+
+    console.log({ isLoading, isLoadingOwnBiodataInfo, isLoadingOwnInfo })
 
     // if(isLoadingOwnBiodataInfo || isLoading || isLoadingOwnInfo){
     //     return <span className=" loading loading-infinity"></span>
     // }
 
-    if(!ownBioData){
+    if (!ownBioData) {
         return <dir><p>No Biodata</p></dir>
     }
 
-    const handlePremimum = async(id)=> {
-        console.log(id);
-        const res = await axiosSecure.patch(`/user/MakePremium/${id}`)
-        console.log(res.data)
-        if (res.data.modifiedCount > 0) {
-            // Swal.fire({
-            //     position: "top-end",
-            //     title: "User membership has been updated as a Premium user.",
-            //     icon: "success",
-            //     timer: 1500,
-            // });
-            setIsClickPremium(!isClickPremium);
-        }
-        
+    const handlePremimum = async (id) => {
+        Swal.fire({
+            title: "Are you sure to make Premium Membership?",
+            showDenyButton: false,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            // denyButtonText: `Don't save`
+        }).then( async (result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                const res = await axiosSecure.patch(`/user/MakePremium/${id}`)
+                // console.log(res.data)
+                if (res.data?.modifiedCount > 0) {
+                    Swal.fire("Making Premium membership successfully sent to the admin!", "", "success");
+
+                }
+            }
+        });
+       
+
     }
     return (
         <div>
             <h2>View Biodata</h2>
             {
-                ownBioData ?<div>
+                ownBioData ? <div>
                     <div className="card card-body border shadow-xl">
                         <div className="flex flex-col justify-center items-center">
                             <img className="rounded-lg shadow-xl" src={image_url} alt="user own image" />
                             <p className="text-center text-2xl mt-5" ><span className="font-bold">Name</span>: {full_name}</p>
                         </div>
                         <div className="mt-5">
-                            
+
                             <p className=""><span className="font-bold text-base">Membership ID</span>: {id}</p>
                             <p className=""><span className="font-bold text-base">Gender</span>: {gender}</p>
                             <p className=""><span className="font-bold text-base">Date Of Birth: {date_of_birth}</span></p>
@@ -80,7 +86,7 @@ const ViewBiodata = () => {
                         </div>
                     </div>
                     <div className="mt-5 text-right mr-10">
-                        <button disabled={isClickPremium || ownData.premiumRequestStatus}  onClick={()=> handlePremimum(ownData?._id)}  className="btn btn-outline bg-green-400 border-none">Make Premimum</button>
+                        <button disabled={isClickPremium || ownData.premiumRequestStatus} onClick={() => handlePremimum(ownData?._id)} className="btn btn-outline bg-green-400 border-none">Make Premimum</button>
                     </div>
                 </div>
                     :

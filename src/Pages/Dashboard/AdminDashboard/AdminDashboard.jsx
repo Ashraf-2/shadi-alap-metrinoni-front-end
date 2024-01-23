@@ -1,11 +1,18 @@
 import React from 'react';
 import useBiodatas from '../../../Hooks/useBiodatas';
+import useUsers from '../../../Hooks/useUsers';
 
 const AdminDashboard = () => {
     const [biodatas,isLoadingBiodata] = useBiodatas();
     // console.log(typeof(biodatas));
     // console.log(biodatas);
-    
+    const [users, isLoadingUsers] = useUsers();
+    console.log('total users: ', users)
+    const premiumUsers = users.filter(item=> {
+        const premium = item.membership === 'premium';
+        return premium;
+    })
+    console.log('premium users: ', premiumUsers);
 
     const maleBiodata = biodatas.filter(item => {           //getting the male biodatas
        const male =  item.gender === 'male';
@@ -24,7 +31,7 @@ const AdminDashboard = () => {
                 <p>total biodata - {biodatas?.length}</p>
                 <p>total male biodata - {maleBiodata?.length}</p>
                 <p>total female biodata - {femaleBiodata}</p>
-                <p>total premium biodata</p>
+                <p>total premium biodata - {premiumUsers.length}</p>
                 <p>total revenue</p>
             </div>
         </div>
