@@ -2,15 +2,19 @@ import Swal from "sweetalert2";
 import usePremiumRequest from "../../../Hooks/usePremiumRequest";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import DasboardTitle from "../../../Components/Shared/DasboardTitle";
+import useAuth from "../../../Hooks/useAuth";
 
 const ApprovePremium = () => {
-    const [premiumRequests, isLoading, refetch] = usePremiumRequest();
+    const {user,isLoading} = useAuth();
+    const [premiumRequests, isLoadingPremium, refetch] = usePremiumRequest();
     console.log(premiumRequests);
     const axiosSecure = useAxiosSecure();
-    const handlePremimum = async (id) => {
-        console.log(id)
-        const res = await axiosSecure.patch(`/user/premium/${id}`)
-        if (res.data.modifiedCount > 0) {
+    
+    const handlePremimum = async (item) => {
+        console.log(item)
+        const res = await axiosSecure.patch(`/user/premium/${item._id}`)
+        const res2 = await axiosSecure.patch(`/biodata/premium/${item.email}`)
+        if (res.data?.modifiedCount > 0 && res2.data?.modifiedCount>0) {
             Swal.fire({
                 position: "top-end",
                 title: "User membership has been updated as a Premium user.",
@@ -20,7 +24,7 @@ const ApprovePremium = () => {
             refetch();
         }
     }
-    if (isLoading) {
+    if (isLoadingPremium || isLoading) {
         return <div className='flex justify-center min-h-screen items-center text-center'>
             <span className='loading loading-bars loading-lg'></span>
         </div>
@@ -64,7 +68,7 @@ const ApprovePremium = () => {
                                         {
                                             item.membership === 'premium' ? <p>Premimum User</p>
                                                 :
-                                                <button onClick={() => handlePremimum(item?._id)} className="btn btn-outline">Make Premium</button>
+                                                <button onClick={() => handlePremimum(item)} className="btn btn-outline">Make Premium</button>
 
 
                                         }

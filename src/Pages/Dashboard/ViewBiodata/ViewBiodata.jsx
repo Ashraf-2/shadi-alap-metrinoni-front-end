@@ -47,7 +47,7 @@ const ViewBiodata = () => {
             if (result.isConfirmed) {
                 const res = await axiosSecure.patch(`/user/MakePremium/${id}`)
                 // console.log(res.data)
-                if (res.data?.modifiedCount > 0) {
+                if (res.data?.modifiedCount > 0 ) {
                     Swal.fire("Making Premium membership successfully sent to the admin!", "", "success");
                 }
                 setIsClickPremium(!isClickPremium)
@@ -63,7 +63,7 @@ const ViewBiodata = () => {
                 ownBioData ? <div>
                     <div className="card card-body border shadow-xl">
                         <div className="flex flex-col justify-center items-center">
-                            <img className="rounded-lg shadow-xl" src={image_url} alt="user own image" />
+                            <img className="rounded-lg shadow-xl max-h-[70vh]" src={image_url} alt="user own image" />
                             <p className="text-center text-2xl mt-5" ><span className="font-bold">Name</span>: {full_name}</p>
                         </div>
                         <div className="mt-5">

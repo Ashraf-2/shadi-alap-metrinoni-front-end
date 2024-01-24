@@ -19,7 +19,8 @@ const CheckOutForm = ({ _id }) => {
     const [isLoading, setIstLoading] = useState(true); 
     useEffect(()=> {
         // const res = axiosSecure.get(`/biodata/${_id}`)
-        axios.get(`http://localhost:5000/biodata/${_id}`)
+        // axios.get(`http://localhost:5000/biodata/${_id}`)
+        axios.get(`https://shadi-alap-server.vercel.app/biodata/${_id}`)
         .then(res =>{
             console.log(res.data)
             setRequestBiodataInfo(res.data)

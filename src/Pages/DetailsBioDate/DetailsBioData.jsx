@@ -38,7 +38,7 @@ const DetailsBioData = () => {
 
     //get others gender biodata.
     useEffect(() => {
-        axios.get(`http://localhost:5000/biodataGender/${gender}`)
+        axios.get(`https://shadi-alap-server.vercel.app/biodataGender/${gender}`)
             .then(res => {
                 // console.log('res.data', res.data);
                 const othersData = res.data.filter(item => item._id != _id);

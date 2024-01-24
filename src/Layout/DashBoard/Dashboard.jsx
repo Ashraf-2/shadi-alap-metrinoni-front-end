@@ -6,13 +6,13 @@ const Dashboard = () => {
     // TODO: use useAdmin from server to get the perfect dashboard 
     const { logOut } = useAuth();
     // const isAdmin = true;      //fokirana style
-    const [isAdmin, isLoading] = useAdmin();
+    const [isAdmin, isAdminLoading] = useAdmin();
     const navigate = useNavigate();
     console.log(isAdmin)
-    if (isLoading) {
+    if (isAdminLoading) {
         return <span className="loading loading-ring"></span>
     }
-
+    
     const handleToSignOut = () => {
         logOut()
         navigate('/');
@@ -57,9 +57,8 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink to={'/dashboard/gotMarried'}>Get Merried Success</NavLink>
                                 </li>
-
-
                             </>
+
                     }
                     <div className="divider"></div>
                     <ul>

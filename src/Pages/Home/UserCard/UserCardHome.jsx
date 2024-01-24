@@ -7,41 +7,42 @@ import useBiodatas from "../../../Hooks/useBiodatas";
 
 
 const UserCardHome = () => {
-    const [userCard, setUserCard] = useState();
-    const [isLoading, setLoading] = useState(true);
-
+    // const [userCard, setUserCard] = useState();
+    // const [isLoading, setLoading] = useState(true);
     const [biodatas, ,isLoadingBiodata] = useBiodatas();
-
 
     const sortByAge = (data) => {
         return data.sort((a, b) => calCulateAge(a.date_of_birth) - calCulateAge(b.date_of_birth))
     }
-
-
-    useEffect(() => {
-        fetch('fakeDataUser.json')
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data)
-                // setUserCard(sortByAge(data))
-                const sortedUsers = sortByAge(data);
-                setUserCard(sortedUsers);
-                setLoading(false);
-            })
-    }, [])
-    if (isLoading || isLoadingBiodata) {
+    const premiumMember = biodatas.filter(item => item.membership && item.membership === 'premium');
+    const sortedDatas = sortByAge(premiumMember);
+    const firstSixSortedDatas = sortedDatas.slice(0,6);
+    // console.log(firstSixSortedDatas);
+    
+    // useEffect(() => {
+    //     fetch('fakeDataUser.json')
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             // console.log(data)
+    //             // setUserCard(sortByAge(data))
+    //             const sortedUsers = sortByAge(data);
+    //             setUserCard(sortedUsers);
+    //             setLoading(false);
+    //         })
+    // }, [])
+    if (isLoadingBiodata) {
         return <div className="flex items-center justify-center">
             <span className="loading loading-infinity loading-lg"></span>
         </div>
     }
-    console.log(userCard);
+    // console.log(firstSixSortedDatas);
     return (
         <div className="my-5">
             <h2 className="text-center text-4xl font-bold mb-5 font-serif">Premium Members</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 ">
                 {
-                    biodatas.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
+                    firstSixSortedDatas.map(onecard => <div key={onecard._id} className="card card-compact w-96 bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
                         <figure><img className=" w-32 h-32 rounded-full mt-5" src={onecard.image_url} alt="Shoes" /></figure>
                         <div className=" card px-8 py-5">
                             <p className="text-xl font-semibold text-center flex flex-row justify-center ">
@@ -58,6 +59,7 @@ const UserCardHome = () => {
                             <p><span className="font-semibold">Division</span>: {onecard.division_name}</p>
 
                             <p><span className="font-semibold">Age</span>: {calCulateAge(onecard.date_of_birth)}</p>
+                            <p><span className="font-semibold">Membership</span>: {(onecard.membership)}</p>
 
                             <div className="card-actions justify-end">
                                 <Link to={`/detailsBioData/${onecard._id}`}>

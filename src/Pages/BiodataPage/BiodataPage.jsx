@@ -62,7 +62,7 @@ const BiodataPage = () => {
 
     return (
         <div>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 my-10">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 ">
                 {/* SELECT DIVISION */}
                 <div className="col-span-2 bg-slate-300 px-1 rounded-lg">
                     <div className=" my-2">
