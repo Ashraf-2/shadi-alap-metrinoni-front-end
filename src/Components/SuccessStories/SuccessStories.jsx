@@ -44,7 +44,7 @@ const SuccessStories = () => {
     }
     return (
         <div className="my-5">
-            <h2 className="text-center text-4xl font-bold">Success Stories</h2>
+            <h2 className="text-center text-4xl font-bold font-serif">Success Stories</h2>
 
             <Swiper
                 className="bg-pink-100 mt-5"

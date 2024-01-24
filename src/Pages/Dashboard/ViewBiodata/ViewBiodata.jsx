@@ -8,6 +8,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import DasboardTitle from "../../../Components/Shared/DasboardTitle";
+
 const ViewBiodata = () => {
     const [ownBioData, refetch, isLoadingOwnBiodataInfo] = useOwnBiodata();
     console.log(ownBioData);
@@ -30,9 +31,9 @@ const ViewBiodata = () => {
     }
 
 
-    if (!ownBioData) {
-        return <dir><p>No Biodata</p></dir>
-    }
+    // if (!ownBioData) {
+    //     return <dir><p>No Biodata</p></dir>
+    // }
 
     const handlePremimum = async (id) => {
         Swal.fire({
@@ -48,8 +49,8 @@ const ViewBiodata = () => {
                 // console.log(res.data)
                 if (res.data?.modifiedCount > 0) {
                     Swal.fire("Making Premium membership successfully sent to the admin!", "", "success");
-
                 }
+                setIsClickPremium(!isClickPremium)
             }
         });
 

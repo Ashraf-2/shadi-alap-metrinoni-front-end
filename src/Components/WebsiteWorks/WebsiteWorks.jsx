@@ -3,7 +3,7 @@ import './WebsiteWorks.css';
 const WebsiteWorks = () => {
     return (
         <div className="website_works bg-fixed mt-10 ">
-            <h2 className="text-center font-medium text-3xl text-white py-5">How Our Website works</h2>
+            <h2 className="text-center font-medium text-3xl text-white pt-5">How Our Website works</h2>
             <div className='flex flex-col md:flex-row justify-between items-center gap-10 w-11/12 mx-auto py-14 text-white'>
                 <img className='rounded-lg hover:scale-110 ease duration-200' src="https://i.ibb.co/PxXjSGX/young-woman-looking-love-online-260nw-2247292153.jpg" alt="" />
                 <div className='order-first md:order-last hover:scale-105 ease duration-200'>

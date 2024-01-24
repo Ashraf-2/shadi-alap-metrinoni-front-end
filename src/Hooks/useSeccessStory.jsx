@@ -9,13 +9,13 @@ const useSeccessStory = () => {
     const {data: successStories=[], refetch, isLoading:isLoadingSuccessStories, isPending} = useQuery({
         queryKey: ['successStories'],
         queryFn: async()=> {
-            const res = await axiosPublic.get('/successStory')
+            const res = await axiosPublic.get('/successStories')
             // const res = await axios.get('/biodata')
             // console.log(res);
             return res.data;
         }
     })
-    return [successStories, isLoadingSuccessStories]
+    return [successStories, isLoadingSuccessStories,refetch]
 };
 
 export default useSeccessStory;

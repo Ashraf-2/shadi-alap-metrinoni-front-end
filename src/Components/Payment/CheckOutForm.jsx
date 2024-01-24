@@ -4,6 +4,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = ({ _id }) => {
     const stripe = useStripe();
@@ -11,7 +12,7 @@ const CheckOutForm = ({ _id }) => {
     console.log('_id: ', _id);
     const [ownData] = useOwnInfo();
     const axiosSecure = useAxiosSecure();
-
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [requestedBiodataInfo, setRequestBiodataInfo] = useState(null);
@@ -79,11 +80,12 @@ const CheckOutForm = ({ _id }) => {
             if(res.data?.insertedId){
                 Swal.fire({
                     position: 'top-right',
-                    timer: 1500,
+                    timer: 2000,
                     showCloseButton: false,
                     text: 'Thank You for your payment',
                     title: "Payment Successfull!"
                 })
+                navigate(`/detailsBioData/${_id}`);
             }
         }
     }

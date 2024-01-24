@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import useAuth from "../../Hooks/useAuth";
 
@@ -19,10 +19,10 @@ const Dashboard = () => {
     }
     return (
         <div className="flex ">
-            <div className="w-72  min-h-screen bg-blue-300 fixed">
+            <div className="w-72  min-h-screen bg-pink-300 fixed">
                 {/* left side */}
                 <h1 className="pt-5 px-6 text-2xl text-center font-bold">Shadi-Alap</h1>
-                <ul className="menu space-y-1 p-4">
+                <ul className="menu space-y-1 p-4 ">
                     {
                         isAdmin ?
                             <>

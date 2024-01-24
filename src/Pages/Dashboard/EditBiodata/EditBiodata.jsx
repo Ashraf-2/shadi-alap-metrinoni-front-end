@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import { useState } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useOwnBiodata from "../../../Hooks/useOwnBiodata";
 import DasboardTitle from "../../../Components/Shared/DasboardTitle";
+import Swal from "sweetalert2";
 
 const EditBiodata = () => {
     const { user, isLoading } = useAuth();
@@ -11,6 +12,7 @@ const EditBiodata = () => {
     const [selectParmanentDivision, setSelectParmanentDivision] = useState('');
     const [selectPresentDivision, setSelectPresentDivision] = useState('');
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
 
     const [ownBioData, refetch, isLoadingOwnBiodataInfo] = useOwnBiodata();
     console.log('own biodata: ', ownBioData)
@@ -78,6 +80,17 @@ const EditBiodata = () => {
         //post biodata to the server.
         const res = await axiosPublic.patch(`/biodata/${user?.email}`, biodata);
         console.log(res.data);
+
+        if(res.data?.modifiedCount || res.data?.insertedId){
+            Swal.fire({
+                position: 'top-right',
+                timer: 2000,
+                showCloseButton: false,
+                text: 'Biodata updated',
+                title: "Congratulaitons!"
+            })
+            navigate('/dashboard/viewBiodata')
+        }
 
     }
 

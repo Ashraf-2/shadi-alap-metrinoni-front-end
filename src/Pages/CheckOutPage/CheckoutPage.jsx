@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useOwnBiodata from "../../Hooks/useOwnBiodata";
 import CheckOutForm from "../../Components/Payment/CheckOutForm";
@@ -17,14 +17,16 @@ const CheckoutPage = () => {
     const [ownBioData] = useOwnBiodata();
     // console.log('own biodata: ', ownBioData);
 
+
     return (
         <div>
             <h2 className="text-center font-bold text-xl">Checkout Page: {_id}</h2>
 
             {/* "handleSubmit" will validate your inputs before invoking "onSubmit"  */}
             <div className="my-10">
-
-                <div className="card-body max-w-xl mx-auto  bg-sky-200 rounded-md">
+                {
+                    ownBioData? 
+                    <div className="card-body max-w-xl mx-auto  bg-sky-200 rounded-md">
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Needy contact person's Id</span>
@@ -62,8 +64,13 @@ const CheckoutPage = () => {
                         </Elements>
                     </div>
                 </div>
+                :
+                <div className="text-center text-2xl min-h-40 flex flex-col items-center justify-center">
+                    <p>You don't have registered your biodata in our webiste.</p>
+                    <p>Please complete your <Link to='/dashboard/editBiodata'><span className="link btn btn-link text-xl px-0 py-0">Profile</span> </Link>first to get another person's contact.</p>
+                </div>
 
-
+                }
             </div>
         </div>
     );

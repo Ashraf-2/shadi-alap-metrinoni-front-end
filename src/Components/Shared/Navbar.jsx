@@ -2,11 +2,12 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AurhProviders/AuthProvider";
 import useAdmin from "../../Hooks/useAdmin";
+import useOwnInfo from "../../Hooks/useOwnInfo";
 
 const Navbar = () => {
 
     const { user, isLaoding, logOut } = useContext(AuthContext);
-
+    const [ownData, ,isLoadingOwnInfo] = useOwnInfo();
     // const isAdmin = true;
     const [isAdmin, isAdminLoading] = useAdmin();
     
@@ -80,11 +81,16 @@ const Navbar = () => {
                                 <li>
                                     <span className="justify-between">
                                         {user.displayName ? user.displayName : "null"}
-                                        <span className="badge">New</span>
+                                        <span className="badge badge-outline">{ownData?.role}</span>
                                     </span>
                                 </li>
                                 <li>
-                                    <Link to='/dashboard'>Dashboard</Link>
+                                    {
+                                        ownData?.role === 'user'?
+                                        <Link to='/dashboard/viewBiodata'>Dashboard</Link>
+                                        :
+                                        <Link to='/dashboard/adminDashboard'>Dashboard</Link>
+                                    }
                                 </li>
                                 <li><span>{user.email ? user.email : "null"}</span></li>
                                 <li><button onClick={handleToSignOut}>Logout</button></li>

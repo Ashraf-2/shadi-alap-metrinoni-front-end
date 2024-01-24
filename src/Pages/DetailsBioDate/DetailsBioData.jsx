@@ -75,11 +75,9 @@ const DetailsBioData = () => {
     }
     return (
         <div>
-            <h2 className="text-center font-bold text-xl text-red-400">Details individual biodata</h2>
-            <h2 className="text-center">this is details bio data page for user id: {_id}</h2>
-            <h2 className="text-center text-red-800 font-bold">this user is a normal user</h2>
-
-            <div className="flex flex-col md:flex-row w-full gap-2 my-10">
+            {/* <h2 className="text-center font-bold text-xl text-red-400">Details individual biodata</h2> */}
+            <h2 className="text-center"><span className="font-semibold"> Biodata ID:</span> {_id}</h2>
+            <div className="flex flex-col md:flex-row w-full gap-2 my-5">
                 {/* left side information */}
                 <div className="md:w-8/12 md:col-span-8">
                     {/* <h2>individual info</h2> */}
@@ -132,7 +130,7 @@ const DetailsBioData = () => {
                                 backgroundColor: isFavourite || isExistFav ? '#C499F3' : '#FF9BD2',
                                 color: isFavourite || isExistFav && "white",
                                 opacity: 1,
-                            }} onClick={handleAddFavourite} className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">App Favourite</button>
+                            }} onClick={handleAddFavourite} className="btn bg-pink-500 hover:bg-neutral  text-xl font-medium border-none">Add Favourite</button>
                             {
                                 isExistFav && <p className="italic text-xs">*You already make that person favourite</p>
                             }

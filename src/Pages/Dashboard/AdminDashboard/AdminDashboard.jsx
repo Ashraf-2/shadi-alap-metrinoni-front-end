@@ -42,7 +42,7 @@ const AdminDashboard = () => {
                 <p>total male biodata - {maleBiodata?.length}</p>
                 <p>total female biodata - {femaleBiodata}</p>
                 <p>total premium biodata - {premiumUsers.length}</p>
-                <p>total revenue - {100 * revueCollections.length} Tk</p>
+                <p>total revenue - {500 * revueCollections.length} Tk</p>
             </div>
         </div>
     );
