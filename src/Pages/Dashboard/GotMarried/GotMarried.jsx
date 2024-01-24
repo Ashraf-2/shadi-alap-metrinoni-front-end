@@ -6,6 +6,7 @@ import useOwnBiodata from "../../../Hooks/useOwnBiodata";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link, useNavigate } from "react-router-dom";
 import useSeccessStory from "../../../Hooks/useSeccessStory";
+import { useState } from "react";
 
 const GotMarried = () => {
     const { user } = useAuth();
@@ -17,8 +18,16 @@ const GotMarried = () => {
     console.log(successStories);
 
     const isAlreadySucceed = successStories?.find(item => item.selfBiodataID === ownBioData?._id)
-    console.log(ownBioData);
-    console.log(isAlreadySucceed);
+    // console.log(ownBioData);
+    // console.log(isAlreadySucceed);
+
+    const [rating, setRating] = useState(1);
+
+    const handleRatingChange = (e) => {
+        const targetedRating = e.target.value;
+        console.log(targetedRating);
+        setRating(parseInt(targetedRating));
+    }
     const handleSubmitForm = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -32,12 +41,14 @@ const GotMarried = () => {
         const occupation = ownBioData?.occupation;
         const userImage = ownBioData?.image_url;
 
-        console.log(selfBiodataID, partnerBiodataId, coupleImageLink, successStory, marriageDate, userName, occupation, userImage);
+        // console.log(selfBiodataID, partnerBiodataId, coupleImageLink, successStory, marriageDate, userName, occupation, userImage);
 
-        const successStoryDoc = { selfBiodataID, partnerBiodataId, coupleImageLink, successStory, marriageDate, userName, occupation, userImage }
+        const successStoryDoc = { selfBiodataID, partnerBiodataId, coupleImageLink, successStory, marriageDate, userName, occupation, userImage, rating }
+        console.log(successStoryDoc)
 
         const isExistPartner = biodatas.find(item => item._id === partnerBiodataId);
-        console.log(isExistPartner);
+        // console.log(isExistPartner);
+       
         if (!isExistPartner) {
             return Swal.fire({
                 position: 'top-right',
@@ -128,6 +139,27 @@ const GotMarried = () => {
                                             </label>
                                             <input type="date" name="marriageDate" className="input input-bordered" required />
 
+                                        </div>
+                                        {/* <div className=" w-1/2 form-control ">
+                                            <label className="label">
+                                                <span className="label-text">Rating</span>
+                                            </label>
+                                            <input type="number" name="rating" min={'1'} max={'5'} value={rating} onChange={handleRatingChange} className="input input-bordered" required />
+
+                                        </div> */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Rating</span>
+                                            </label>
+                                            <select value={rating} onChange={handleRatingChange} className="select w-full max-w-xs" required>
+                                                <option value='' disabled>Rating</option>
+                                                <option value={1}>1</option>
+                                                <option value={2}>2</option>
+                                                <option value={3}>3</option>
+                                                <option value={4}>4</option>
+                                                <option value={5}>5</option>
+
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="form-control mt-6">

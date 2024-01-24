@@ -122,7 +122,6 @@ const EditBiodata = () => {
                                 <option value='female'>Female</option>
 
                             </select>
-                            {/* <input type="text" name="email" placeholder="Gender" className="input input-bordered" required /> */}
                         </div>
                     </div>
 
