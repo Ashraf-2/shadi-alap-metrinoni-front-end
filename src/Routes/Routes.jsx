@@ -17,6 +17,7 @@ import ViewBiodata from "../Pages/Dashboard/ViewBiodata/ViewBiodata";
 import ContactRequest from "../Pages/Dashboard/ContactRequest/ContactRequest";
 import FavouriteBiodata from "../Pages/Dashboard/FavouriteBiodata/FavouriteBiodata";
 import ApproveContactReq from "../Pages/Dashboard/ApproveContactReq/ApproveContactReq";
+import GotMarried from "../Pages/Dashboard/GotMarried/GotMarried";
 
 export const routes = createBrowserRouter([
     {
@@ -70,6 +71,10 @@ export const routes = createBrowserRouter([
             {
                 path: 'favouriteBiodata',
                 element: <FavouriteBiodata></FavouriteBiodata>
+            },
+            {
+                path: 'gotMarried',
+                element: <GotMarried></GotMarried>
             }
 
             //admin user paths

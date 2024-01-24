@@ -7,6 +7,7 @@ import useOwnInfo from "../../../Hooks/useOwnInfo";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 const ViewBiodata = () => {
     const [ownBioData, refetch, isLoadingOwnBiodataInfo] = useOwnBiodata();
     console.log(ownBioData);
@@ -56,7 +57,7 @@ const ViewBiodata = () => {
     }
     return (
         <div>
-            <h2>View Biodata</h2>
+            <DasboardTitle title={"View Biodata"}></DasboardTitle>
             {
                 ownBioData ? <div>
                     <div className="card card-body border shadow-xl">

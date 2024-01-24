@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import useContactRequestUserSide from "../../../Hooks/useContactRequestUserSide";
+import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 
 const ContactRequest = () => {
     const [ContactRequestsUser, isLoadingContactRequest, refetch] = useContactRequestUserSide();
@@ -18,7 +19,9 @@ const ContactRequest = () => {
     }
     return (
         <div>
-            <h2>Contact Request</h2>
+            <DasboardTitle title={"Contact Requests"}></DasboardTitle>
+            <h2 className="text-center mb-5 text-xl font-serif ">{ContactRequestsUser? `Contact Requests: ${ContactRequestsUser.length}`: "No contact request found"}</h2>
+
             <div className="overflow-x-auto">
                 <table className="table">
                     <thead>

@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useUsers from "../../../Hooks/useUsers";
+import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 
 const ManageUsers = () => {
     const { user, isLoading} = useAuth();
@@ -47,8 +48,8 @@ const ManageUsers = () => {
 
     return (
         <div>
-            <h2>Manage Users</h2>
-            <p>All users: {users.length}</p>
+            <DasboardTitle title={"Manage Users"}></DasboardTitle>
+            <h2 className="text-center mb-5 text-xl font-serif ">{users? `Total Users: ${users.length}`: "No users found!"}</h2>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}

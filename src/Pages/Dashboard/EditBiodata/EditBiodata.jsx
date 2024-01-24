@@ -3,6 +3,7 @@ import useAuth from "../../../Hooks/useAuth";
 import { useState } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useOwnBiodata from "../../../Hooks/useOwnBiodata";
+import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 
 const EditBiodata = () => {
     const { user, isLoading } = useAuth();
@@ -87,7 +88,7 @@ const EditBiodata = () => {
     }
     return (
         <div>
-            <h2 className=" text-center font-medium">Complete/Edit Biodata</h2>
+            <DasboardTitle title={"Edit/Complete Biodata"}></DasboardTitle>
             <div className="bg-green-100 rounded-lg max-w-2xl mx-auto my-5">
                 <form onSubmit={handleSubmitForm} className="card-body">
                     <div className="flex flex-col md:flex-row gap-2 justify-between">

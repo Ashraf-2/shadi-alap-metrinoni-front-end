@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useFavourites from "../../../Hooks/useFavourites";
 import useAuth from "../../../Hooks/useAuth";
+import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 
 const FavouriteBiodata = () => {
     const {user, isLoading} = useAuth();
@@ -22,8 +23,9 @@ const FavouriteBiodata = () => {
         </div>
     }
     return (
-        <div className="mt-5">
-            <h2>Favourite Biodata:{favourite.length} </h2>
+        <div className="">
+            <DasboardTitle title={"Favourite Biodatas"}></DasboardTitle>
+            <h2 className="text-center mb-5 text-xl font-serif ">{favourite? `Favourites Person: ${favourite.length}`: "No Favourite person found"}</h2>
             <div className="overflow-x-auto">
                 <table className="table">
                     <thead>

@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import usePremiumRequest from "../../../Hooks/usePremiumRequest";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 
 const ApprovePremium = () => {
     const [premiumRequests, isLoading, refetch] = usePremiumRequest();
@@ -26,7 +27,8 @@ const ApprovePremium = () => {
     }
     return (
         <div>
-            <h2>Approve Premium</h2>
+            <DasboardTitle title={"Approve Premium"}></DasboardTitle>
+            <h2 className="text-center mb-5 text-xl font-serif ">{premiumRequests? `Premium Data: ${premiumRequests.length}`: "No premium users found"}</h2>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}

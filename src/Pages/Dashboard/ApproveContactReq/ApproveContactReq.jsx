@@ -1,6 +1,8 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useContactRequest from "../../../Hooks/useContactRequest";
+import Dashboard from "../../../Layout/DashBoard/Dashboard";
+import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 
 const ApproveContactReq = () => {
     const [contactRequests, isLoading,refetch] = useContactRequest(); 
@@ -27,7 +29,8 @@ const ApproveContactReq = () => {
     }
     return (
         <div>
-            <h2>Approve Contact Request</h2>
+            <DasboardTitle title={"Approve Contact Request"}></DasboardTitle>
+            <h2 className="text-center mb-5 text-xl font-serif ">{contactRequests? `Contact Requests: ${contactRequests.length}`: "No contact request found"}</h2>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}

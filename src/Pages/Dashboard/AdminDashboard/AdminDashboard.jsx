@@ -1,8 +1,7 @@
-import React from 'react';
 import useBiodatas from '../../../Hooks/useBiodatas';
 import useUsers from '../../../Hooks/useUsers';
-import useContactRequest from '../../../Hooks/useContactRequest';
 import useRevenueContact from '../../../Hooks/useRevenueContact';
+import DasboardTitle from '../../../Components/Shared/DasboardTitle';
 
 const AdminDashboard = () => {
     const [biodatas,,,isLoadingBiodata] = useBiodatas();        //getting all biodatas to count the number of male and female biodatas.
@@ -37,7 +36,7 @@ const AdminDashboard = () => {
 
     return (
         <div>
-            <h2>Admin Dasboard</h2>
+            <DasboardTitle title={"Admin Dashboard"}></DasboardTitle>
             <div className='flex flex-col my-5 text-xl space-y-2 p-5 bg-orange-100'>
                 <p>total biodata - {biodatas?.length}</p>
                 <p>total male biodata - {maleBiodata?.length}</p>
