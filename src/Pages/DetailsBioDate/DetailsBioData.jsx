@@ -83,7 +83,7 @@ const DetailsBioData = () => {
                     {/* <h2>individual info</h2> */}
                     <figure className="max-w-xl mx-auto md:hover:scale-105 md:duration-200">
                         {/* bio pic */}
-                        <img className="object-cover overflow-hidden rounded-lg " src={image_url} alt="image of the user" />
+                        <img className="object-cover overflow-hidden max-h-96 mx-auto rounded-lg" src={image_url} alt="image of the user" />
                         <figcaption className="text-center text-3xl font-bold">{full_name}</figcaption>
                     </figure>
                     <div className="text-left mx-10 my-5 text-xl">

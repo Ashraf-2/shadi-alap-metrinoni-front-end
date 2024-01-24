@@ -58,7 +58,7 @@ const Navbar = () => {
                 </div>
                 <a className="btn btn-ghost text-xl ">
                     <span>Shadi-Alap</span>
-                    <img src="../../../src/assets/nikah-logo2.png" className="w-[50px] h-[30px] " alt="" />
+                    <img src="/nikah-logo2.png" className="w-[50px] h-[30px] " alt="" />
                 </a>
             </div>
             <div className="navbar-center hidden lg:flex">
