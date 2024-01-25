@@ -19,6 +19,8 @@ import FavouriteBiodata from "../Pages/Dashboard/FavouriteBiodata/FavouriteBioda
 import ApproveContactReq from "../Pages/Dashboard/ApproveContactReq/ApproveContactReq";
 import GotMarried from "../Pages/Dashboard/GotMarried/GotMarried";
 import AdminRoutes from "./AdminRoutes";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import AdminSuccessStories from "../Pages/Dashboard/AdminSuccessStories/AdminSuccessStories";
 
 export const routes = createBrowserRouter([
     {
@@ -49,6 +51,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/checkout/:_id',
                 element: <PrivateRoutes><CheckoutPage></CheckoutPage></PrivateRoutes>
+            },
+            {
+                path: 'aboutUs',
+                element: <AboutUs></AboutUs>
             }
         ]
     },
@@ -94,6 +100,10 @@ export const routes = createBrowserRouter([
             {
                 path: "approveContact",
                 element: <AdminRoutes><ApproveContactReq></ApproveContactReq></AdminRoutes>
+            },
+            {
+                path: "successStories",
+                element: <AdminRoutes><AdminSuccessStories></AdminSuccessStories></AdminRoutes>
             }
         ]
     }

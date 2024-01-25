@@ -38,6 +38,10 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink to={'/dashboard/approveContact'}>Approve Contact</NavLink>
                                 </li>
+                                <li>
+                                    <Link to={'/dashboard/successStories'}>See Success Stories</Link>
+                                </li>
+
                                 <div className="divider"></div>
                                 <li>
                                     <NavLink to={'/dashboard/viewBiodata'}>View Biodata</NavLink>

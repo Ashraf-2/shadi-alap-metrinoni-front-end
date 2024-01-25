@@ -22,7 +22,7 @@ const Navbar = () => {
         <li>
             <NavLink to='/biodatapage'>Biodata</NavLink>
         </li>
-        <li><a>About Us</a></li>
+        <li><NavLink to='/aboutUs'>About Us</NavLink></li>
         <li><a>Contact Us</a></li>
         {
             user && isAdmin && <li>
