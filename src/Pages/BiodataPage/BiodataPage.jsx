@@ -91,7 +91,7 @@ const BiodataPage = () => {
                 <div className=" col-span-10 text-center text-xl p-5 rounded-lg bg-red-100">
                     {
                         filtered_data.length ?
-                            <div className="grid grid-cols-3 gap-5">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
                                     // filtered_data.map((biodata, index) => <li key={biodata.id}>{index + 1}. {biodata.full_name}</li>)
                                     filtered_data.map((onecard, index) => <SingleBioData key={onecard.id} onecard={onecard}></SingleBioData>)

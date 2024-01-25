@@ -27,7 +27,7 @@ const SingleBioData = ({onecard}) => {
 
 
     return (
-        <div key={_id} className="card card-compact bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
+        <div key={_id} className="card card-normal bg-base-100 shadow-xl hover:bg-slate-200  hover:scale-105 ease duration-100">
         <figure><img className=" w-32 h-32 rounded-full mt-5" src={image_url} alt="Shoes" /></figure>
         <div className="card-body">
             <p className="text-xl font-semibold text-center flex flex-row justify-center ">
