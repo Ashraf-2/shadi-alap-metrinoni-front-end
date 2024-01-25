@@ -38,6 +38,16 @@ const Dashboard = () => {
                                 <li>
                                     <NavLink to={'/dashboard/approveContact'}>Approve Contact</NavLink>
                                 </li>
+                                <div className="divider"></div>
+                                <li>
+                                    <NavLink to={'/dashboard/viewBiodata'}>View Biodata</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={'/dashboard/editBiodata'}>Edit Biodata</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={'/dashboard/favouriteBiodata'}>My Favourite Friends</NavLink>
+                                </li>
 
                             </>
                             :

@@ -7,7 +7,7 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 
 const SignUp = () => {
-    const { user, isLoading, registerUser, updateUserProfile, googleLoginInPopUp,setIsNewUser } = useContext(AuthContext);
+    const { user, isLoading, registerUser, updateUserProfile, googleLoginInPopUp, setIsNewUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const axiosPublic = useAxiosPublic();
@@ -29,7 +29,12 @@ const SignUp = () => {
                 updateUserProfile(name, photoUrl)
                     .then(res => {
                         // alert('you are logged in')
-                        const userInfo = { name: name, email: email, membership: "normal",role:"user" };
+                        const userInfo = {
+                            name: name,
+                            email: email,
+                            membership: "normal",
+                            role: "user"
+                        };
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 console.log(res);
@@ -103,14 +108,6 @@ const SignUp = () => {
                             <input type="password" name="password" placeholder="password" className="input input-bordered" required />
 
                         </div>
-                        {/* CAPTCHA loading */}
-                        {/* <div className="flex flex-col">
-                            <div>
-                                <LoadCanvasTemplate />
-                            </div>
-                            <input ref={captchaRef} type="text" name="captcha" placeholder="write the captch above" className="input input-bordered" required />
-                            <button onClick={handleValidateCaptcha} className='btn btn-outline btn-xs mt-1'>Validate</button>
-                        </div> */}
                         <div className="form-control mt-6">
                             <input type="submit" value="Sign Up" className="btn btn-info"></input>
                         </div>

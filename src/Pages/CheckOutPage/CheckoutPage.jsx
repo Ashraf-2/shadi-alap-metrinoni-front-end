@@ -67,7 +67,7 @@ const CheckoutPage = () => {
                 :
                 <div className="text-center text-2xl min-h-40 flex flex-col items-center justify-center">
                     <p>You don't have registered your biodata in our webiste.</p>
-                    <p>Please complete your <Link to='/dashboard/editBiodata'><span className="link btn btn-link text-xl px-0 py-0">Profile</span> </Link>first to get another person's contact.</p>
+                    <p className="italic">*Please complete your <Link to='/dashboard/editBiodata'><span className="link btn btn-link text-xl px-0 py-0">Profile</span> </Link>first to get another person's contact.</p>
                 </div>
 
                 }

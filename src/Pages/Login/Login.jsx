@@ -3,11 +3,14 @@ import { FcGoogle } from "react-icons/fc";
 import { useContext, useState } from "react";
 import swal from "sweetalert";
 import { AuthContext } from "../../AurhProviders/AuthProvider";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Login = () => {
-    const { googleLoginInPopUp, logInwithEmailPass } = useContext(AuthContext);
+    const { googleLoginInPopUp, logInwithEmailPass,updateUserProfile } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
+    const axiosPublic = useAxiosPublic();
 
     console.log("location: ", location);
     // console.log("navigate: ",navigate);
@@ -42,7 +45,8 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
                 swal("Good job!", "Logged in successfully!", "success");
-                navigate(location?.state ? location.state : '/');
+                // navigate(location.state ?. location.state : '/');
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.error(error);
@@ -54,8 +58,25 @@ const Login = () => {
         googleLoginInPopUp()
             .then(result => {
                 console.log(result.user);
-                swal("Congratulations!", "Login successfully!", "success");
-                navigate(location?.state ? location.state : '/');
+                const userInfo = {
+                    email: result.user?.email,
+                    name: result.user?.displayName,
+                    membership: "normal",
+                    role: "user"
+                }
+                // updateUserProfile()
+                updateUserProfile(result.user?.displayName, result.user?.photoURL)
+                axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                console.log(res);
+                                swal("Congratulations!", "Login successfully!", "success");
+                                navigate('/');
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
+                        navigate('/');
+                // navigate(location?.state ? location.state : '/');
             })
             .catch(error => {
                 console.log(error);

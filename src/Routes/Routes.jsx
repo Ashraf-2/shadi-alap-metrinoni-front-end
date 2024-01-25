@@ -18,6 +18,7 @@ import ContactRequest from "../Pages/Dashboard/ContactRequest/ContactRequest";
 import FavouriteBiodata from "../Pages/Dashboard/FavouriteBiodata/FavouriteBiodata";
 import ApproveContactReq from "../Pages/Dashboard/ApproveContactReq/ApproveContactReq";
 import GotMarried from "../Pages/Dashboard/GotMarried/GotMarried";
+import AdminRoutes from "./AdminRoutes";
 
 export const routes = createBrowserRouter([
     {
@@ -80,19 +81,19 @@ export const routes = createBrowserRouter([
             //admin user paths
             ,{
                 path: 'adminDashboard',
-                element: <AdminDashboard></AdminDashboard>
+                element: <AdminRoutes><AdminDashboard></AdminDashboard> </AdminRoutes>
             },
             {
                 path: "manageUsers",
-                element: <ManageUsers></ManageUsers>
+                element: <AdminRoutes><ManageUsers></ManageUsers></AdminRoutes>
             },
             {
                 path: "approvePremium",
-                element: <ApprovePremium></ApprovePremium>
+                element: <AdminRoutes><ApprovePremium></ApprovePremium></AdminRoutes>
             },
             {
                 path: "approveContact",
-                element: <ApproveContactReq></ApproveContactReq>
+                element: <AdminRoutes><ApproveContactReq></ApproveContactReq></AdminRoutes>
             }
         ]
     }
