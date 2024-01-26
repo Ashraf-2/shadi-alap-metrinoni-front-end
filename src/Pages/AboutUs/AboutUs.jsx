@@ -2,7 +2,14 @@ import { useLoaderData } from "react-router-dom";
 import Banner from "../../Components/Banner/Banner";
 import FoundingStory from "../../Components/FoundingStory/FoundingStory";
 import TeamInformation from "../../Components/TeamInfomation/TeamInformation";
+import FreeBacgroundImage from "./FreeBacgroundImage";
 
+// const image1Link = 'https://media.istockphoto.com/id/1390160734/photo/shot-of-a-young-couple-on-the-beach-on-their-wedding-day.webp?b=1&s=170667a&w=0&k=20&c=aHGTNUjpHvWS_ulRkohNDWByZODnvpmatPjDMdgd8kY='
+const image1Link = 'https://thumbs.dreamstime.com/b/happy-wedding-couple-walking-along-seashore-13154501.jpg'
+const image2Link = 'https://media.istockphoto.com/id/868924246/photo/bride-and-groom-enjoying-in-their-love.webp?b=1&s=170667a&w=0&k=20&c=Sa_kKKNWESz-wXPJPSOtKms8PqSyMiq8SfIH3h5d_4k='
+
+const backgroundText1 = "Uniting Hearts,Everlasting Bonds,Soulful Connections ..";
+const backgroundText2 = "Love Beyond Borders,Harmony in Hearts,Forever Together ..";
 const AboutUs = () => {
     // const data = useLoaderData();
     // console.log('data: ', data);
@@ -19,8 +26,10 @@ const AboutUs = () => {
                 </div>
             </div>
             {/* founding story section */}
+            <FreeBacgroundImage imgLink={image1Link} backgroudText={backgroundText1}></FreeBacgroundImage>
             <FoundingStory></FoundingStory>
-            <TeamInformation></TeamInformation>
+            <FreeBacgroundImage imgLink={image2Link} backgroudText={backgroundText2}></FreeBacgroundImage>
+            <TeamInformation ></TeamInformation>
         </div>
     );
 };
