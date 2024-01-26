@@ -16,7 +16,7 @@ const AboutUs = () => {
     return (
         <div>
             {/* a banner section */}
-            <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://blogs.ubc.ca/kimberleyleong/files/2017/02/teamwork-videos-smart-teamwork.jpg)' }}>
+            <div className="hero min-h-screen bg-no-repeat object-cover" style={{ backgroundImage: 'url(https://cdn-images-1.medium.com/max/1200/1*Rwfmjx0u-KS11H9-WHbEbQ.jpeg)'}}>
                 <div className="hero-overlay bg-opacity-50"></div>
                 <div className="hero-content text-center text-neutral-content">
                     <div className="max-w-2xl">
