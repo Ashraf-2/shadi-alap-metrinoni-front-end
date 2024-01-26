@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "role": "Co-Founder & CEO",
+        "image": "https://gujaratdarpan.com/wp-content/uploads/2021/01/Team-memeber-01.png"
+    },
+    {
+        "id": 2,
+        "name": "Jane Smith",
+        "role": "Lead Developer",
+        "image": "https://wpbeaveraddons.com/wp-content/uploads/2017/06/t1-2.png"
+    },
+    {
+        "id": 3,
+        "name": "Alex Johnson",
+        "role": "Marketing Specialist",
+        "image": "https://media.istockphoto.com/id/637205004/photo/getting-things-done-through-technology.jpg?s=170667a&w=0&k=20&c=YJqoceRqOd0rOHa0purv5TRZEtQfk4EjxkWU9-PHUNM="
+    },
+    {
+        "id": 4,
+        "name": "Emily Brown",
+        "role": "User Experience Designer",
+        "image": "https://babesredefined.com/wp-content/uploads/2019/08/team-member-02.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Michael White",
+        "role": "Customer Support Specialist",
+        "image": "https://babesredefined.com/wp-content/uploads/2019/08/team-member-02.jpg"
+    }
+]

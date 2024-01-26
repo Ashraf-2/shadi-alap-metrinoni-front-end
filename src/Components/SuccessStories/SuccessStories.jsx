@@ -36,16 +36,7 @@ const SuccessStories = () => {
     if (isLoadingSuccessStories) {
         return <span className="loading loading-dots"></span>
     }
-    // useEffect(() => {
-    //     fetch('fakeLoveStory.json')
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             // console.log(data)
-    //             const sortedStories = sortByMarriageDate(data)
-    //             setStories(sortedStories)
-    //             setIsLoading(false)
-    //         })
-    // }, [])
+    
 
     // if (isLoading) {
     //     return <span className="loading loading-dots text-center"></span>
