@@ -5,7 +5,7 @@ import TeamInformation from "../../Components/TeamInfomation/TeamInformation";
 import FreeBacgroundImage from "./FreeBacgroundImage";
 
 // const image1Link = 'https://media.istockphoto.com/id/1390160734/photo/shot-of-a-young-couple-on-the-beach-on-their-wedding-day.webp?b=1&s=170667a&w=0&k=20&c=aHGTNUjpHvWS_ulRkohNDWByZODnvpmatPjDMdgd8kY='
-const image1Link = 'https://thumbs.dreamstime.com/b/happy-wedding-couple-walking-along-seashore-13154501.jpg'
+const image1Link = 'https://static.vecteezy.com/system/resources/previews/013/877/305/large_2x/man-and-woman-with-wedding-ring-young-married-couple-holding-hands-photo.jpg'
 const image2Link = 'https://media.istockphoto.com/id/868924246/photo/bride-and-groom-enjoying-in-their-love.webp?b=1&s=170667a&w=0&k=20&c=Sa_kKKNWESz-wXPJPSOtKms8PqSyMiq8SfIH3h5d_4k='
 
 const backgroundText1 = "Uniting Hearts,Everlasting Bonds,Soulful Connections ..";
