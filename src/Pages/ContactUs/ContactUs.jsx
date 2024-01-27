@@ -19,14 +19,14 @@ const ContactUs = () => {
     return (
         <div>
             <ContactPageBanner></ContactPageBanner>
-            <div className="flex flex-col md:flex-row mx-20">
-                <div className="flex-1 flex flex-col items-center md:items-start justify-center  my-5 md:my-0">
-                    <h2 className="text-3xl font-bold">Contact Us</h2>
+            <div className="flex flex-col md:flex-row max-w-4xl lg:mx-auto mx-16 md:mx-0 my-5 md:my-0">
+                <div className="flex-1 flex flex-col items-center md:items-start justify-center  my-2 md:my-0">
+                    <h2 className="text-4xl font-bold">Contact with us</h2>
                     <p className="text-lg font-semibold text-blue-500">+8801337788224</p>
                     <p>Need to get in touch?Plase fill out the form for your inquiry..</p>
                 </div>
-                <div className="flex-1  ">
-                    <form onSubmit={handleSubmit} className=" md:w-7/12 border card card-body shadow-lg px-2 mx-auto md:my-10 ">
+                <div className="flex-1  mt-3 md:mt-0">
+                    <form onSubmit={handleSubmit} className=" md:w-9/12 border card card-body shadow-lg px-2 mx-auto md:my-5 ">
                         <div>
                             <div className="form-control">
                                 <label className="label">
