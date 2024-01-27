@@ -21,6 +21,7 @@ import GotMarried from "../Pages/Dashboard/GotMarried/GotMarried";
 import AdminRoutes from "./AdminRoutes";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import AdminSuccessStories from "../Pages/Dashboard/AdminSuccessStories/AdminSuccessStories";
+import ContactUs from "../Pages/ContactUs/ContactUs";
 
 export const routes = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ export const routes = createBrowserRouter([
             {
                 path: 'aboutUs',
                 element: <AboutUs></AboutUs>,
+            },
+            {
+                path: 'contactUs',
+                element: <ContactUs></ContactUs>
             }
         ]
     },
