@@ -9,11 +9,18 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 
+// for qr code
+import QRCode from "react-qr-code";
+
+const link = 'www.google.com'
+
+
 const ViewBiodata = () => {
     const [ownBioData, refetch, isLoadingOwnBiodataInfo] = useOwnBiodata();
     console.log(ownBioData);
     const { user, isLoading } = useAuth();
     const [isClickPremium, setIsClickPremium] = useState(false);
+    const [qrCode, setQrCode] = useState('');
 
     const { _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name, race, selectPresentDivision, email, mobile_number, partner_age, expected_partner_height, expected_partner_weight, father_name, mother_name, height, weight, about_me } = ownBioData;
 
@@ -47,15 +54,15 @@ const ViewBiodata = () => {
             if (result.isConfirmed) {
                 const res = await axiosSecure.patch(`/user/MakePremium/${id}`)
                 // console.log(res.data)
-                if (res.data?.modifiedCount > 0 ) {
+                if (res.data?.modifiedCount > 0) {
                     Swal.fire("Making Premium membership successfully sent to the admin!", "", "success");
                 }
                 setIsClickPremium(!isClickPremium)
             }
         });
-
-
     }
+    const url = `https://shadi-alap-auth.web.app/detailsBioData/${id}`;
+
     return (
         <div>
             <DasboardTitle title={"View Biodata"}></DasboardTitle>
@@ -65,6 +72,15 @@ const ViewBiodata = () => {
                         <div className="flex flex-col justify-center items-center">
                             <img className="rounded-lg shadow-xl max-h-[70vh]" src={image_url} alt="user own image" />
                             <p className="text-center text-2xl mt-5" ><span className="font-bold">Name</span>: {full_name}</p>
+                            <div style={{ background: 'white', padding: '16px' }}>
+                                <QRCode
+                                    size={256}
+                                    style={{ height: "auto", maxWidth: "50%", width: "100%" }}
+                                    value={`https://shadi-alap-auth.web.app/detailsBioData/${id}`}
+                                    viewBox={`0 0 256 256`} />
+
+
+                            </div>
                         </div>
                         <div className="mt-5">
 
@@ -100,6 +116,19 @@ const ViewBiodata = () => {
                         </Link>
                     </div>
             }
+            
+            {/* <div className="min-h-[40vh] max-w-lg mx-auto"> */}
+                {/* <h2>Generate your own qr code.</h2> */}
+                {/* <div style={{ background: 'white', padding: '16px' }}> */}
+                    {/* <QRCode
+                        size={256}
+                        style={{ height: "auto", maxWidth: "50%", width: "100%" }}
+                        value={`https://shadi-alap-auth.web.app/detailsBioData/${id}`}
+                        viewBox={`0 0 256 256`} /> */}
+                    {/* <button className="btn btn-ghost" >Download</button> */}
+                    {/* <img src={qrCode} alt="qr code img" /> */}
+                {/* </div> */}
+            {/* </div> */}
         </div>
     );
 };

@@ -9,6 +9,7 @@ import useOwnInfo from "../../Hooks/useOwnInfo";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import useFavourites from "../../Hooks/useFavourites";
+import QRCode from "react-qr-code";
 
 const DetailsBioData = () => {
     const { user } = useAuth();
@@ -27,7 +28,7 @@ const DetailsBioData = () => {
     const axiosPublic = useAxiosPublic();
     // console.log(_id)
     // console.log('individual_info: ', individual_info);
-    const {  _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name,race,selectPresentDivision,email,mobile_number,partner_age,expected_partner_height,expected_partner_weight,father_name,mother_name, height,weight, about_me} = individual_info || {};            //because after filtering 'individual_info' data is an array. and we need the first data of from the array.
+    const { _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name, race, selectPresentDivision, email, mobile_number, partner_age, expected_partner_height, expected_partner_weight, father_name, mother_name, height, weight, about_me } = individual_info || {};            //because after filtering 'individual_info' data is an array. and we need the first data of from the array.
 
     const age = calCulateAge(date_of_birth);        //calculate age of the user
 
@@ -85,6 +86,7 @@ const DetailsBioData = () => {
                         {/* bio pic */}
                         <img className="object-cover overflow-hidden max-h-96 mx-auto rounded-lg" src={image_url} alt="image of the user" />
                         <figcaption className="text-center text-3xl font-bold">{full_name}</figcaption>
+
                     </figure>
                     <div className="text-left mx-10 my-5 text-xl">
                         {/* bio informaiton */}
@@ -101,7 +103,7 @@ const DetailsBioData = () => {
                         <p><span className="font-bold">Expected Partner Height:</span> {expected_partner_height} Feet</p>
                         <p><span className="font-bold">Expected Partner Weight:</span> {expected_partner_weight} Kg</p>
                         <p><span className="font-bold">Occupation:</span> {occupation}</p>
-                       
+
                         <p> <span className="font-bold">About:</span> {about_me}</p>
 
                         {/* <p><span className="font-bold">Contact Info:</span> {
@@ -112,10 +114,10 @@ const DetailsBioData = () => {
                             <p>
                                 <span className="text-xl font-bold">Contact Number: </span>
                                 {
-                                    ownData?.membership === 'premium' ||  ownData.email === email ? <span>{mobile_number}</span> : <span>Not Allowed</span>
+                                    ownData?.membership === 'premium' || ownData.email === email ? <span>{mobile_number}</span> : <span>Not Allowed</span>
                                 }
                             </p>
-                            <div hidden={ownData.membership === 'premium' ||  ownData.email === email}>
+                            <div hidden={ownData.membership === 'premium' || ownData.email === email}>
 
                                 <Link to={`/checkout/${id}`}>
                                     <button className="btn btn-outline hover:bg-lime-400 text-black hover:text-black hover:border-none">Request for contact info</button>
@@ -134,6 +136,16 @@ const DetailsBioData = () => {
                             {
                                 isExistFav && <p className="italic text-xs">*You already make that person favourite</p>
                             }
+                        </div>
+                        <div className="w-6/12 mx-auto my-10">
+                            <QRCode
+                                size={256}
+                                style={{ height: "auto", maxWidth: "50%", width: "100%" }}
+                                value={`https://shadi-alap-auth.web.app/detailsBioData/${id}`}
+                                viewBox={`0 0 256 256`} />
+                                <p className="italic text-sm mt-2">*scan to view on phone</p>
+
+
                         </div>
 
                     </div>
