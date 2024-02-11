@@ -5,12 +5,14 @@ import { calCulateAge } from "../../../Functions/calculateAgeFn";
 import useAuth from "../../../Hooks/useAuth";
 import useOwnInfo from "../../../Hooks/useOwnInfo";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 import DasboardTitle from "../../../Components/Shared/DasboardTitle";
 
 // for qr code
 import QRCode from "react-qr-code";
+// import htmlToImage from 'html-to-image';
+
 
 const link = 'www.google.com'
 
@@ -21,6 +23,7 @@ const ViewBiodata = () => {
     const { user, isLoading } = useAuth();
     const [isClickPremium, setIsClickPremium] = useState(false);
     const [qrCode, setQrCode] = useState('');
+    const qrCodeRef = useRef(null);
 
     const { _id: id, image_url, gender, division_name, occupation, date_of_birth, full_name, race, selectPresentDivision, email, mobile_number, partner_age, expected_partner_height, expected_partner_weight, father_name, mother_name, height, weight, about_me } = ownBioData;
 
@@ -61,7 +64,47 @@ const ViewBiodata = () => {
             }
         });
     }
-    const url = `https://shadi-alap-auth.web.app/detailsBioData/${id}`;
+
+
+    // download qr code.
+    const downloadQrCode = ()=> {
+        const svg = qrCodeRef.current.querySelector('svg');
+
+        //third way. 
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        // Get SVG dimensions
+        const svgRect = svg.getBoundingClientRect();
+        const width = svgRect.width;
+        const height = svgRect.height;
+
+        // Set canvas dimensions
+        canvas.width = width;
+        canvas.height = height;
+
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const DOMURL = window.URL || window.webkitURL || window;
+        const img = new Image();
+        const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+        const url = DOMURL.createObjectURL(svgBlob);
+
+        img.onload = function () {
+            context.drawImage(img, 0, 0);
+            DOMURL.revokeObjectURL(url);
+
+            const png = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = png;
+            link.download = 'qr_code.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        img.src = url;
+
+    }
 
     return (
         <div>
@@ -72,12 +115,14 @@ const ViewBiodata = () => {
                         <div className="flex flex-col justify-center items-center">
                             <img className="rounded-lg shadow-xl max-h-[70vh]" src={image_url} alt="user own image" />
                             <p className="text-center text-2xl mt-5" ><span className="font-bold">Name</span>: {full_name}</p>
-                            <div style={{ background: 'white', padding: '16px' }}>
-                                <QRCode
+                            {/* qr code implementation and download  */}
+                            <div className=" mx-auto py-1 flex flex-row items-center gap-5 px-2" style={{ background: 'white' }} ref={qrCodeRef}>
+                                <QRCode className="w-full"
                                     size={256}
-                                    style={{ height: "auto", maxWidth: "50%", width: "100%" }}
+                                    // style={{ height: "auto", width: "100%" }}
                                     value={`https://shadi-alap-auth.web.app/detailsBioData/${id}`}
-                                    viewBox={`0 0 256 256`} />
+                                    viewBox={`0 0 256 256`}  />
+                                    <button className="btn btn-outline mt-5 btn-sm " onClick={downloadQrCode}>Download</button>
 
 
                             </div>
